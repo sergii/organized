@@ -1,0 +1,18 @@
+id: ORG-CON-0003
+type: concept
+slug: custody
+status: draft
+i18n_key: knowledge.ORG-CON-0003
+evidence_status: working_hypothesis
+
+definition: The relationship describing who currently physically holds, controls, or is responsible for an item, regardless of who owns it.
+
+notes:
+  - Custody may be temporary.
+  - Loaned items commonly have different ownership and custody.
+
+related:
+  - ORG-CON-0001
+  - ORG-CON-0002
+  - ORG-CON-0004
+  - ORG-CON-0005
