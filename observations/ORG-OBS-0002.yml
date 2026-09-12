@@ -1,0 +1,15 @@
+id: ORG-OBS-0002
+type: observation
+observation_type: participant_report
+case_id: ORG-CASE-0001
+session_id: ORG-SES-0001
+statement: Some possessions can remain owned by a person while physically being used or stored by someone else, making ownership, custody, and location separate facts.
+
+supports:
+  - ORG-PR-0003
+
+confidence: high
+
+notes:
+  - A genuinely gifted item should leave active inventory because ownership has changed.
+  - A loaned or externally stored item may still belong in active inventory because responsibility remains.
