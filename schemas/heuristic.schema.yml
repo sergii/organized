@@ -44,5 +44,4 @@ properties:
     type: array
     uniqueItems: true
     items: { type: string, pattern: '^ORG-(PR|HEU|PRA|AP|CON)-[0-9]{4}$' }
-  extensions: { type: object }
 additionalProperties: false
