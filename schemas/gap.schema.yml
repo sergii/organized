@@ -1,36 +1,31 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-$title: Organized knowledge gap
-
+$id: https://raw.githubusercontent.com/sergii/organized/main/schemas/gap.schema.yml
+title: Organized knowledge gap
 type: object
-required:
-  - id
-  - type
-  - question
-  - status
-
+required: [id, type, question, status, case_ids, related_knowledge, observation_ids, source_ids, resolution, notes]
 properties:
-  id:
-    type: string
-    pattern: '^ORG-GAP-[0-9]{4}$'
-  type:
-    const: gap
-  question:
-    type: string
-  status:
-    enum: [open, researching, partially_resolved, resolved, rejected]
+  id: { type: string, pattern: '^ORG-GAP-[0-9]{4}$' }
+  type: { const: gap }
+  question: { type: string, minLength: 1 }
+  status: { type: string, enum: [open, resolved, parked] }
   case_ids:
     type: array
-    items: { type: string }
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-CASE-[0-9]{4}$' }
   related_knowledge:
     type: array
-    items: { type: string }
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-(PR|HEU|PRA|AP|CON)-[0-9]{4}$' }
   observation_ids:
     type: array
-    items: { type: string }
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-OBS-[0-9]{4}$' }
   source_ids:
     type: array
-    items: { type: string }
-  resolution:
-    type: string
-
-additionalProperties: true
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-SRC-[0-9]{4}$' }
+  resolution: { type: string }
+  notes:
+    type: array
+    items: { type: string, minLength: 1 }
+additionalProperties: false

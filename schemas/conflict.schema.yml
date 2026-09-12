@@ -1,49 +1,43 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-$title: Organized knowledge conflict
-
+$id: https://raw.githubusercontent.com/sergii/organized/main/schemas/conflict.schema.yml
+title: Organized knowledge conflict
 type: object
-required:
-  - id
-  - type
-  - title
-  - status
-  - positions
-
+required: [id, type, title, status, case_ids, positions, current_interpretation, unresolved_questions]
 properties:
-  id:
-    type: string
-    pattern: '^ORG-CF-[0-9]{4}$'
-  type:
-    const: conflict
-  title:
-    type: string
-  status:
-    enum: [open, contextualized, resolved, superseded]
+  id: { type: string, pattern: '^ORG-CF-[0-9]{4}$' }
+  type: { const: conflict }
+  title: { type: string, minLength: 1 }
+  status: { type: string, enum: [open, resolved, parked] }
+  case_ids:
+    type: array
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-CASE-[0-9]{4}$' }
   positions:
     type: array
     minItems: 2
     items:
       type: object
-      required: [id, claim]
+      required: [id, claim, works_when, fails_when, source_ids, observation_ids]
       properties:
-        id: { type: string }
-        claim: { type: string }
+        id: { type: string, pattern: '^[a-z0-9_]+$' }
+        claim: { type: string, minLength: 1 }
         works_when:
           type: array
-          items: { type: string }
+          items: { type: string, minLength: 1 }
         fails_when:
           type: array
-          items: { type: string }
+          items: { type: string, minLength: 1 }
         source_ids:
           type: array
-          items: { type: string }
+          uniqueItems: true
+          items: { type: string, pattern: '^ORG-SRC-[0-9]{4}$' }
         observation_ids:
           type: array
-          items: { type: string }
-  current_interpretation:
-    type: string
+          uniqueItems: true
+          items: { type: string, pattern: '^ORG-OBS-[0-9]{4}$' }
+      additionalProperties: false
+  current_interpretation: { type: string, minLength: 1 }
   unresolved_questions:
     type: array
-    items: { type: string }
-
-additionalProperties: true
+    items: { type: string, minLength: 1 }
+additionalProperties: false

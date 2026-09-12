@@ -1,57 +1,23 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-$title: Organized session
-
+$id: https://raw.githubusercontent.com/sergii/organized/main/schemas/session.schema.yml
+title: Organized session
 type: object
-required:
-  - id
-  - type
-  - case_id
-  - goal
-  - status
-
+required: [id, type, case_id, status, goal, context, constraints, actions, notes]
 properties:
-  id:
-    type: string
-    pattern: '^ORG-SES-[0-9]{4}$'
-  type:
-    const: session
-  case_id:
-    type: string
-  status:
-    enum: [planned, active, paused, completed, abandoned]
-  goal:
-    type: string
+  id: { type: string, pattern: '^ORG-SES-[0-9]{4}$' }
+  type: { const: session }
+  case_id: { type: string, pattern: '^ORG-CASE-[0-9]{4}$' }
+  status: { type: string, enum: [planned, active, completed, abandoned] }
+  goal: { type: string, minLength: 1 }
   context:
     type: object
-    additionalProperties: true
   constraints:
     type: array
-    items: { type: string }
+    items: { type: string, minLength: 1 }
   actions:
     type: array
-    items:
-      type: object
-      required: [id, description]
-      properties:
-        id: { type: string }
-        description: { type: string }
-        started_at: { type: string }
-        completed_at: { type: string }
-        outcome_ids:
-          type: array
-          items: { type: string }
-  observation_ids:
-    type: array
-    items: { type: string }
-  outcome_ids:
-    type: array
-    items: { type: string }
-  started_at:
-    type: string
-  ended_at:
-    type: string
+    items: { type: object }
   notes:
     type: array
-    items: { type: string }
-
-additionalProperties: true
+    items: { type: string, minLength: 1 }
+additionalProperties: false

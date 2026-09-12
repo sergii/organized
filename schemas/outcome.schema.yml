@@ -1,34 +1,16 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-$title: Organized outcome
-
+$id: https://raw.githubusercontent.com/sergii/organized/main/schemas/outcome.schema.yml
+title: Organized outcome
 type: object
-required:
-  - id
-  - type
-  - session_id
-  - description
-
+required: [id, type, session_id, status, summary]
 properties:
-  id:
-    type: string
-    pattern: '^ORG-OUT-[0-9]{4}$'
-  type:
-    const: outcome
-  session_id:
-    type: string
-  action_id:
-    type: string
-  description:
-    type: string
-  measures:
-    type: object
-    additionalProperties: true
-  qualitative:
+  id: { type: string, pattern: '^ORG-OUT-[0-9]{4}$' }
+  type: { const: outcome }
+  session_id: { type: string, pattern: '^ORG-SES-[0-9]{4}$' }
+  status: { type: string, enum: [observed, verified] }
+  summary: { type: string, minLength: 1 }
+  metrics: { type: object }
+  notes:
     type: array
-    items: { type: string }
-  observed_at:
-    type: string
-  confidence:
-    enum: [low, medium, high]
-
-additionalProperties: true
+    items: { type: string, minLength: 1 }
+additionalProperties: false

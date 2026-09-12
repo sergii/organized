@@ -1,0 +1,48 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://raw.githubusercontent.com/sergii/organized/main/schemas/heuristic.schema.yml
+title: Organized heuristic
+type: object
+required: [id, type, slug, revision, status, statement, evidence_status, related]
+properties:
+  id:
+    type: string
+    pattern: '^ORG-HEU-[0-9]{4}$'
+  type: { const: heuristic }
+  slug:
+    type: string
+    pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+  revision: { type: integer, minimum: 1 }
+  status:
+    type: string
+    enum: [draft, reviewed, stable, deprecated]
+  statement: { type: string, minLength: 1 }
+  conceptual_formula: { type: string, minLength: 1 }
+  notes:
+    type: array
+    items: { type: string, minLength: 1 }
+  examples:
+    type: object
+    properties:
+      high_leverage:
+        type: array
+        items: { type: string, minLength: 1 }
+      low_early_leverage:
+        type: array
+        items: { type: string, minLength: 1 }
+    additionalProperties: false
+  failure_modes:
+    type: array
+    items: { type: string, minLength: 1 }
+  evidence_status:
+    type: string
+    enum: [working_hypothesis, community_practice, expert_practice, evidence_supported, contested]
+  source_ids:
+    type: array
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-SRC-[0-9]{4}$' }
+  related:
+    type: array
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-(PR|HEU|PRA|AP|CON)-[0-9]{4}$' }
+  extensions: { type: object }
+additionalProperties: false
