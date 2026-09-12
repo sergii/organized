@@ -1,6 +1,7 @@
 $schema: https://json-schema.org/draft/2020-12/schema
 $title: Organized knowledge unit
-$type: object
+
+type: object
 
 required:
   - id
@@ -47,6 +48,18 @@ properties:
       - expert_practice
       - evidence_supported
       - contested
+
+  source_ids:
+    type: array
+    items:
+      type: string
+      pattern: '^ORG-SRC-[0-9]{4}$'
+
+  observation_ids:
+    type: array
+    items:
+      type: string
+      pattern: '^ORG-OBS-[0-9]{4}$'
 
   related:
     type: array
