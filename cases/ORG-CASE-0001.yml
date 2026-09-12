@@ -28,9 +28,21 @@ principles:
   - ORG-PR-0001
   - ORG-PR-0002
   - ORG-PR-0003
+  - ORG-PR-0004
+  - ORG-PR-0005
+  - ORG-PR-0006
 
 heuristics:
   - ORG-HEU-0001
+
+open_gaps:
+  - ORG-GAP-0001
+
+conflicts:
+  - ORG-CF-0001
+
+example_sessions:
+  - ORG-SES-0001
 
 workflow:
   - id: establish_rules
@@ -72,6 +84,7 @@ workflow:
     actions:
       - Evaluate utility, future utility, replaceability, financial value, sentimental value, and storage burden when relevant.
       - Route items to keep, relocate, lend, sell, donate, recycle, discard, or unresolved review.
+      - Consider the carrying cost of keeping an item and the transaction cost of selling it when those costs materially affect the decision.
 
   - id: organize_after_reduction
     objective: Give surviving items stable homes.
@@ -89,5 +102,6 @@ warnings:
   - Do not treat sentimental value as invalid just because it is non-functional.
   - Do not use non-use duration as an automatic discard rule.
   - Do not optimize physical space at the expense of ownership, safety, legal obligations, or irreplaceable value.
+  - Do not treat purchase price as current value.
 
 evidence_status: working_hypothesis
