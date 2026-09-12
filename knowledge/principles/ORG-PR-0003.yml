@@ -1,0 +1,46 @@
+id: ORG-PR-0003
+type: principle
+slug: completed-disposition-leaves-active-inventory
+status: draft
+i18n_key: knowledge.ORG-PR-0003
+
+statement:
+  canonical: A completed disposition should remove an item from active mental inventory.
+
+intent:
+  - reduce_mental_load
+  - keep_inventory_truthful
+  - separate_history_from_responsibility
+
+concepts:
+  ownership: Who legally or practically owns the item now.
+  custody: Who physically holds or uses the item now.
+  location: Where the item can currently be found.
+  disposition: What has happened or is intended to happen to the item.
+
+active_states:
+  - owned
+  - loaned
+  - stored_elsewhere
+  - in_repair
+  - awaiting_sale
+  - awaiting_donation
+
+terminal_states:
+  - gifted
+  - sold
+  - donated
+  - discarded
+  - recycled
+
+reasoning:
+  - Historical possession does not imply current ownership or responsibility.
+  - Keeping gifted or sold objects in active inventory can recreate the mental burden the disposition was meant to remove.
+  - Historical records may remain useful, but they should be separated from the active possession set.
+
+exceptions:
+  - A transfer may remain active when return, payment, ownership, or responsibility is unresolved.
+
+evidence_status: working_hypothesis
+
+related: []
