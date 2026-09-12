@@ -64,6 +64,8 @@ Examples:
 - conflict -> case / observations / sources;
 - knowledge -> external sources it relies on.
 
+The `related` field on durable knowledge is also directional. It means "this unit points to these other durable units as useful context or dependencies." It does **not** imply symmetry. A reverse `related`, `referenced_by`, `used_by`, or similar edge is derived from the repository graph rather than stored manually.
+
 Reverse relationships are computed from the repository graph. This prevents pairs of files from silently disagreeing.
 
 ## Stable IDs
@@ -86,7 +88,7 @@ IDs stay stable when wording changes.
 
 ## Revisions and localization
 
-Localizable durable units and cases have an integer `revision`. Locale entries store `source_revision`; CI rejects stale translations.
+Localizable durable units and cases have an integer `revision`. Locale entries store `source_revision`; CI rejects stale translations when revisions differ.
 
 `i18n_key` is intentionally not stored because it can be derived from type and ID.
 
@@ -94,7 +96,7 @@ See [`localization.md`](localization.md).
 
 ## Schema policy
 
-Top-level entity shapes are strict (`additionalProperties: false`). Experimental, type-specific fields may be placed under an explicit `extensions` object rather than leaking arbitrary fields into the canonical shape.
+Entity shapes are strict (`additionalProperties: false`). There is no arbitrary `extensions` escape hatch. When a reusable field proves useful in a real case, add it deliberately to the appropriate type schema so agents can validate and depend on it.
 
 Schemas use JSON Schema draft 2020-12 and declare `$id`. The validator checks schemas, unique IDs, filename/ID agreement, referential integrity, one-way backlink policy, locale completeness, and locale revision freshness.
 
