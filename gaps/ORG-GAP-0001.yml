@@ -2,21 +2,15 @@ id: ORG-GAP-0001
 type: gap
 question: In severely constrained rooms, does prioritizing high-certainty actions that free physical capacity lead to better progress than starting with category-by-category sorting?
 status: open
-
 case_ids:
   - ORG-CASE-0001
-
 related_knowledge:
   - ORG-PR-0002
   - ORG-HEU-0001
-
 observation_ids:
   - ORG-OBS-0001
-
 source_ids: []
-
 resolution: ''
-
 notes:
-  - "Better progress" needs operational definitions such as usable staging space, time to first meaningful improvement, rehandling count, and completion rate.
+  - 'Better progress needs operational definitions such as usable staging space, time to first meaningful improvement, rehandling count, and completion rate.'
   - The answer may depend on available floor area, time horizon, item mix, and whether the room must remain usable during the process.
