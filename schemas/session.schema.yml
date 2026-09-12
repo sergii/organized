@@ -1,0 +1,57 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$title: Organized session
+
+type: object
+required:
+  - id
+  - type
+  - case_id
+  - goal
+  - status
+
+properties:
+  id:
+    type: string
+    pattern: '^ORG-SES-[0-9]{4}$'
+  type:
+    const: session
+  case_id:
+    type: string
+  status:
+    enum: [planned, active, paused, completed, abandoned]
+  goal:
+    type: string
+  context:
+    type: object
+    additionalProperties: true
+  constraints:
+    type: array
+    items: { type: string }
+  actions:
+    type: array
+    items:
+      type: object
+      required: [id, description]
+      properties:
+        id: { type: string }
+        description: { type: string }
+        started_at: { type: string }
+        completed_at: { type: string }
+        outcome_ids:
+          type: array
+          items: { type: string }
+  observation_ids:
+    type: array
+    items: { type: string }
+  outcome_ids:
+    type: array
+    items: { type: string }
+  started_at:
+    type: string
+  ended_at:
+    type: string
+  notes:
+    type: array
+    items: { type: string }
+
+additionalProperties: true
