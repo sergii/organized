@@ -1,0 +1,38 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$title: Organized source
+
+type: object
+required:
+  - id
+  - type
+  - source_type
+  - title
+
+properties:
+  id:
+    type: string
+    pattern: '^ORG-SRC-[0-9]{4}$'
+  type:
+    const: source
+  source_type:
+    enum: [book, article, study, professional_guide, community_discussion, video, interview, manual, other]
+  title:
+    type: string
+  author:
+    type: string
+  publisher:
+    type: string
+  published_at:
+    type: string
+  url:
+    type: string
+  accessed_at:
+    type: string
+  notes:
+    type: array
+    items: { type: string }
+  claim_ids:
+    type: array
+    items: { type: string }
+
+additionalProperties: true
