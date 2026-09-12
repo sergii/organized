@@ -1,0 +1,18 @@
+id: ORG-CON-0002
+type: concept
+slug: ownership
+status: draft
+i18n_key: knowledge.ORG-CON-0002
+evidence_status: working_hypothesis
+
+definition: The relationship that determines who has the primary claim to an item and authority over irreversible decisions about it.
+
+notes:
+  - Ownership can differ from custody and location.
+  - Unclear ownership should block irreversible disposal until resolved.
+
+related:
+  - ORG-CON-0001
+  - ORG-CON-0003
+  - ORG-CON-0004
+  - ORG-CON-0005
