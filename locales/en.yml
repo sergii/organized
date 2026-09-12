@@ -1,0 +1,38 @@
+locale: en
+version: 1
+
+knowledge:
+  ORG-PR-0001:
+    title: Touch things to change their state, not merely their location
+    summary: Repeatedly moving undecided items creates work without resolving the underlying problem.
+    guidance: Prefer interactions that identify an item, resolve ownership, make a decision, complete a disposition, or assign a stable home.
+
+  ORG-PR-0002:
+    title: Create capacity before organization
+    summary: In a constrained space, the first objective is often to create enough room to think, inspect, sort, and move safely.
+    guidance: Remove obvious exits and create a small working zone before attempting detailed organization.
+
+  ORG-PR-0003:
+    title: Completed disposition leaves active inventory
+    summary: Once an item has truly been gifted, sold, donated, discarded, or recycled, it should no longer occupy active mental inventory.
+    guidance: Keep historical records when useful, but separate past possession from current ownership, custody, and responsibility.
+
+  ORG-HEU-0001:
+    title: Decluttering leverage
+    summary: In constrained spaces, prioritize actions that free meaningful capacity with high decision certainty and low effort.
+    guidance: Use this as a ranking aid, not an automatic disposal rule. Ownership, safety, emotional value, and irreversible consequences can override it.
+
+cases:
+  ORG-CASE-0001:
+    title: Decluttering a constrained room
+    summary: A small room is densely occupied by furniture, boxes, papers, unknown belongings, and items with unclear ownership, value, or future use.
+    problem: The room does not provide enough free capacity to sort everything conventionally, so repeatedly moving objects can create activity without progress.
+    goal: Create enough physical and cognitive capacity to make good decisions, then organize only what survives those decisions.
+    stages:
+      establish_rules: Protect against unsafe or irreversible decisions.
+      zero_decision_exits: Remove obvious trash and already-decided exits first.
+      create_working_zone: Establish a small stable area for inspection and sorting.
+      resolve_large_high_leverage_items: Use clear bulky decisions to gain maneuvering space.
+      reduce_uncertainty: Identify unknown objects, ownership, and current state.
+      process_survivors: Evaluate what deserves to remain active.
+      organize_after_reduction: Assign stable homes only after the surviving set is clearer.
