@@ -1,0 +1,17 @@
+id: ORG-Q-0001
+type: question
+question: What should I do first when a small room is already so full that conventional sorting has no practical staging space?
+status: converted_to_gap
+
+case_ids:
+  - ORG-CASE-0001
+
+related_knowledge:
+  - ORG-PR-0002
+  - ORG-HEU-0001
+
+gap_id: ORG-GAP-0001
+occurrence_count: 1
+
+notes:
+  - This question helped expose that generic decluttering advice may fail when there is not enough space to lay out a whole category.
