@@ -1,0 +1,15 @@
+id: ORG-OBS-0001
+type: observation
+observation_type: participant_report
+case_id: ORG-CASE-0001
+session_id: ORG-SES-0001
+statement: A room of approximately 16 square meters is already occupied by several large furniture items and accumulated boxes, leaving little staging space for sorting.
+
+supports:
+  - ORG-PR-0002
+
+confidence: high
+
+notes:
+  - This records the starting condition, not an outcome.
+  - It motivates testing capacity-first guidance under real space constraints.
