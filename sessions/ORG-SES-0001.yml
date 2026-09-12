@@ -1,0 +1,34 @@
+id: ORG-SES-0001
+type: session
+case_id: ORG-CASE-0001
+status: planned
+goal: Turn a heavily occupied room into a usable space while deciding what should stay, leave, be sold, be given away, or be stored elsewhere.
+
+context:
+  room_area_m2: 16
+  furniture:
+    - table
+    - sofa
+    - armchair
+    - tall_shelving_unit
+  current_state:
+    - boxes_with_mixed_contents
+    - papers_and_receipts
+    - possessions_with_unclear_future_use
+    - limited_free_floor_space
+
+constraints:
+  - limited_floor_area
+  - limited_staging_area
+  - moving_items_without_deciding_only_shifts_clutter
+  - some_items_may_have_unknown_or_external_custody
+
+actions: []
+observation_ids:
+  - ORG-OBS-0001
+  - ORG-OBS-0002
+outcome_ids: []
+
+notes:
+  - This session is intentionally created before execution so future actions and outcomes can be recorded without reconstructing them from memory.
+  - No completion metrics or results should be added until they are actually observed.
