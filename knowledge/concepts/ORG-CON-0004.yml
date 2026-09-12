@@ -1,0 +1,18 @@
+id: ORG-CON-0004
+type: concept
+slug: location
+status: draft
+i18n_key: knowledge.ORG-CON-0004
+evidence_status: working_hypothesis
+
+definition: The current physical place where an item is expected to be found.
+
+notes:
+  - Location is independent from ownership and custody.
+  - A useful location should be specific enough to support retrieval when retrieval matters.
+
+related:
+  - ORG-CON-0001
+  - ORG-CON-0002
+  - ORG-CON-0003
+  - ORG-CON-0005
