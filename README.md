@@ -2,133 +2,113 @@
 
 **Organized** is an open knowledge base for making better decisions about spaces, possessions, routines, and everyday organization.
 
-It is designed for two audiences at the same time:
+It exists to turn useful but often tacit everyday judgment into explicit, reusable, evidence-aware knowledge for both people and software.
 
-- **people**, who need clear, practical guidance;
-- **agents and applications**, which need explicit, structured knowledge they can reason over and reuse.
+## What this repository is
 
-Organized is not only about tidy homes or storage. It ranges from simple questions such as *“Where should I keep this?”* to complex situations such as moving, downsizing, inherited belongings, cluttered rooms, shared ownership, self-storage, and deciding what should continue to exist in your life.
+**The repository is the open knowledge base first.**
+
+Agents, applications, APIs, websites, blog posts, landing pages, YouTube videos, Threads, TikTok, Instagram, and other outputs are consumers or projections of this knowledge. They are not separate sources of truth.
+
+That distinction matters: the repository is optimized for durable concepts, claims, cases, provenance, uncertainty, localization, and validation rather than for the UX or SEO needs of one product.
+
+Organized ranges from simple questions such as *“Where should I keep this?”* to complex situations such as moving, downsizing, inherited belongings, cluttered rooms, possessions held by other people, self-storage, and deciding what should continue to exist in your life.
 
 ## Core idea
 
-A lot of useful everyday knowledge is tacit. Some people naturally see that a shelf is in the wrong place, that an item is expensive to keep, that a room needs capacity before organization, or that a sentimental object is being justified as a practical one.
+A lot of useful everyday knowledge is tacit. Some people naturally see that a shelf is in the wrong place, that an item is expensive to keep, that a room needs capacity before organization, or that an emotional reason is being presented as a practical one.
 
-Organized tries to make that knowledge explicit without turning common sense into needless bureaucracy.
+Organized makes that knowledge explicit when doing so adds value through repeatable decisions, non-obvious principles, trade-offs, exceptions, provenance, reusable workflows, or learning from real outcomes.
 
-We make knowledge explicit when doing so adds value through one or more of:
+It deliberately does **not** try to encode every piece of common sense.
 
-- repeatable decision frameworks;
-- non-obvious principles;
-- trade-offs and failure modes;
-- exceptions and counterexamples;
-- reusable workflows;
-- provenance and evidence;
-- accumulated outcomes from real cases.
-
-## More than a static knowledge base
-
-Organized is intended to learn from both external knowledge and real use.
+## Knowledge loop
 
 ```text
-books / articles / research
-professional practice
-community experience
-user questions
-real-world sessions
-          │
-          ▼
-        inbox
-          │
-          ▼
- observations / normalized claims
-          │
-          ▼
- knowledge / gaps / conflicts
-          │
-          ▼
-         cases
-          │
-          ▼
- recommendations
-          │
-          ▼
-         action
-          │
-          ▼
-        outcome
-          │
-          └──────────────► observations
+external sources      user questions      real-world sessions
+       \                    |                    /
+        \                   |                   /
+                         observations
+                              |
+                 knowledge / gaps / conflicts
+                              |
+                            cases
+                              |
+                    recommendations / action
+                              |
+                           outcomes
+                              |
+                              +------> observations
 ```
 
 See [`docs/knowledge-lifecycle.md`](docs/knowledge-lifecycle.md).
 
-## Knowledge model
+## Model
 
-Durable knowledge currently uses:
+Durable knowledge:
 
-- **Principles** - durable rules that generalize across situations.
-- **Heuristics** - useful shortcuts that are not universally true.
-- **Practices** - concrete ways of doing something.
-- **Anti-patterns** - approaches that look useful but often fail.
-- **Concepts** - vocabulary needed to reason consistently.
-- **Cases** - reusable situations that compose multiple knowledge units into a workflow.
+- **Principles** - durable claims expected to generalize.
+- **Heuristics** - useful shortcuts or ranking aids with limits.
+- **Practices** - concrete reusable techniques.
+- **Anti-patterns** - approaches that tend to fail under known conditions.
+- **Concepts** - stable vocabulary.
+- **Cases** - reusable situations that compose knowledge into workflows.
 
-Learning and provenance use:
+Learning and provenance:
 
-- **Sessions** - concrete attempts to work through a case.
-- **Outcomes** - what actually changed after actions or sessions.
-- **Observations** - normalized facts, reports, inferences, or source claims.
-- **Sources** - provenance for external knowledge.
-- **Questions** - user questions that may expose missing knowledge.
-- **Gaps** - explicit unknowns.
-- **Conflicts** - competing claims or strategies whose boundaries still need to be understood.
-
-A case does not replace the knowledge base. It selects and sequences the knowledge that matters for a particular situation.
+- **Sessions**, **Outcomes**, **Observations**, **Sources**, **Questions**, **Gaps**, and **Conflicts**.
 
 See [`docs/knowledge-model.md`](docs/knowledge-model.md).
 
-## Knowledge vs personal world state
+## World state is separate from knowledge
 
-Organized also separates general guidance from the state of a particular person's physical world.
-
-An item can be owned by one person, physically held by another, stored somewhere else, and still require future action. Ownership, custody, location, and disposition are separate facts.
+An item can belong to one person, physically sit with another, be located elsewhere, and still require future action. `ownership`, `custody`, `location`, and `disposition` are deliberately separate concepts.
 
 See [`docs/world-model.md`](docs/world-model.md).
 
 ## First living case
 
-The first working case is **decluttering in constrained space**: a small room is already full of furniture, boxes, papers, unknown belongings, and items with unclear ownership or value. The goal is not to make it look tidy. The first goal is to create enough capacity to make good decisions.
+The first case is **decluttering in constrained space**: a small room is already full of furniture, boxes, papers, unknown belongings, and items with unclear ownership or value. The first goal is not visual tidiness. It is to create enough capacity to make good decisions.
 
-- Case: [`cases/ORG-CASE-0001.yml`](cases/ORG-CASE-0001.yml)
-- Planned real-world session: [`sessions/ORG-SES-0001.yml`](sessions/ORG-SES-0001.yml)
-- Open knowledge gap: [`gaps/ORG-GAP-0001.yml`](gaps/ORG-GAP-0001.yml)
-- Open strategy conflict: [`conflicts/ORG-CF-0001.yml`](conflicts/ORG-CF-0001.yml)
+- [`cases/ORG-CASE-0001.yml`](cases/ORG-CASE-0001.yml)
+- [`sessions/ORG-SES-0001.yml`](sessions/ORG-SES-0001.yml)
+- [`gaps/ORG-GAP-0001.yml`](gaps/ORG-GAP-0001.yml)
+- [`conflicts/ORG-CF-0001.yml`](conflicts/ORG-CF-0001.yml)
 
 ## Languages
 
-English is the canonical working language. Ukrainian is maintained as a first-class localization.
-
-Reusable human-facing copy lives in locale files:
+English is the canonical editorial language. Ukrainian is a first-class human-facing localization.
 
 - [`locales/en.yml`](locales/en.yml)
 - [`locales/uk.yml`](locales/uk.yml)
+- [`locales/glossary.yml`](locales/glossary.yml)
 
-Stable IDs connect localized content to the underlying knowledge units. Operational records such as raw observations and sessions do not need to duplicate every field in every language unless they are promoted into reusable published knowledge.
+Localizable canonical units have `revision`; each localized entry has `source_revision`. Validation fails when a translation is missing or stale.
 
-This allows the same source of truth to later power documentation, an API, applications, blog posts, landing pages, YouTube scripts, Threads, TikTok, Instagram, and other projections.
+See [`docs/localization.md`](docs/localization.md).
 
-Ukrainian introduction: [`README.uk.md`](README.uk.md).
+## Validation
+
+Schemas are executable contracts, not documentation-only files.
+
+```bash
+bundle install
+bundle exec ruby scripts/validate.rb
+```
+
+CI validates:
+
+- per-type JSON Schemas;
+- unique IDs and filename/ID agreement;
+- referential integrity for `ORG-*` references;
+- one-way relationship policy;
+- English and Ukrainian locale completeness;
+- locale `source_revision` freshness.
 
 ## Repository layout
 
 ```text
 organized/
-├── README.md
-├── README.uk.md
-├── docs/
-│   ├── knowledge-model.md
-│   ├── knowledge-lifecycle.md
-│   └── world-model.md
 ├── knowledge/
 │   ├── principles/
 │   ├── heuristics/
@@ -143,13 +123,17 @@ organized/
 ├── sources/
 ├── inbox/
 ├── locales/
-│   ├── en.yml
-│   └── uk.yml
-└── schemas/
+├── schemas/
+├── scripts/
+└── docs/
 ```
 
-The structure is intentionally evolutionary. We will grow the model from real cases instead of designing a large ontology in advance.
+## Licensing
+
+Knowledge and content are licensed under **CC BY 4.0**. Code, schemas, validation tooling, and GitHub workflow infrastructure are licensed under **MIT**. Third-party material cited by `sources/` remains under its original terms.
+
+See [`LICENSE.md`](LICENSE.md).
 
 ## Status
 
-Early foundation. Current knowledge units are drafts and should be treated as working hypotheses until they gain stronger provenance, counterexamples, external sources, and real-world outcomes.
+Early foundation. Current durable units are drafts and mostly `working_hypothesis`. The next value comes from real sessions and credible external sources, not from rapidly multiplying principles.
