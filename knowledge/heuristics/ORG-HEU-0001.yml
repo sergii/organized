@@ -1,0 +1,37 @@
+id: ORG-HEU-0001
+type: heuristic
+slug: decluttering-leverage
+status: draft
+i18n_key: knowledge.ORG-HEU-0001
+
+statement:
+  canonical: In constrained spaces, prefer actions that free substantial capacity with high decision certainty and low effort.
+
+conceptual_formula: decluttering_leverage = space_freed * decision_certainty / effort
+
+notes:
+  - The formula is conceptual, not a calibrated numeric model.
+  - Emotional cost, safety, ownership, legal constraints, and disposal difficulty can override the ranking.
+
+high_leverage_examples:
+  - empty_large_boxes
+  - obvious_trash
+  - bulky_items_already_decided_to_leave
+  - completed_returns
+
+low_early_leverage_examples:
+  - old_receipts_requiring_review
+  - sentimental_photos
+  - small_mixed_drawers
+  - ambiguous_documents
+
+failure_modes:
+  - optimizing only for physical volume and destroying valuable or meaningful items
+  - treating low effort as more important than ownership or safety
+  - using the heuristic as an automatic disposal rule
+
+evidence_status: working_hypothesis
+
+related:
+  - ORG-PR-0001
+  - ORG-PR-0002
