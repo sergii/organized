@@ -1,0 +1,49 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$title: Organized knowledge conflict
+
+type: object
+required:
+  - id
+  - type
+  - title
+  - status
+  - positions
+
+properties:
+  id:
+    type: string
+    pattern: '^ORG-CF-[0-9]{4}$'
+  type:
+    const: conflict
+  title:
+    type: string
+  status:
+    enum: [open, contextualized, resolved, superseded]
+  positions:
+    type: array
+    minItems: 2
+    items:
+      type: object
+      required: [id, claim]
+      properties:
+        id: { type: string }
+        claim: { type: string }
+        works_when:
+          type: array
+          items: { type: string }
+        fails_when:
+          type: array
+          items: { type: string }
+        source_ids:
+          type: array
+          items: { type: string }
+        observation_ids:
+          type: array
+          items: { type: string }
+  current_interpretation:
+    type: string
+  unresolved_questions:
+    type: array
+    items: { type: string }
+
+additionalProperties: true
