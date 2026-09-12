@@ -1,0 +1,28 @@
+id: ORG-PR-0004
+type: principle
+slug: keeping-things-has-a-cost
+status: draft
+i18n_key: knowledge.ORG-PR-0004
+evidence_status: working_hypothesis
+
+claim: Keeping an item has costs even when no direct storage fee is paid.
+
+reasoning:
+  - Items consume physical capacity.
+  - Items may need maintenance, transport, retrieval effort, and future decisions.
+  - Keeping low-value items can displace more useful uses of space and attention.
+
+consider:
+  - space_burden
+  - maintenance_burden
+  - mobility_burden
+  - cognitive_burden
+  - replacement_cost
+  - irreplaceability
+
+exceptions:
+  - The existence of carrying cost does not imply that valuable, sentimental, emergency, archival, or rare items should be removed.
+
+related:
+  - ORG-CON-0001
+  - ORG-CON-0005
