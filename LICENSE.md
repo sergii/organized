@@ -22,7 +22,9 @@ Unless a file says otherwise, the following paths are licensed under the Creativ
 
 You may share and adapt this material, including commercially, provided that you give appropriate attribution and indicate changes as required by CC BY 4.0.
 
-License: https://creativecommons.org/licenses/by/4.0/
+See [`LICENSES/CC-BY-4.0.txt`](LICENSES/CC-BY-4.0.txt).
+
+Canonical license page: https://creativecommons.org/licenses/by/4.0/
 Canonical legal code: https://creativecommons.org/licenses/by/4.0/legalcode
 
 Suggested attribution:
