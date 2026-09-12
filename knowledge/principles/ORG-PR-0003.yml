@@ -14,23 +14,22 @@ reasoning:
   - Historical records may remain useful, but they should be separated from the active possession set.
 exceptions:
   - A transfer may remain active when return, payment, ownership, or responsibility is unresolved.
+active_states:
+  - owned
+  - loaned
+  - stored_elsewhere
+  - in_repair
+  - awaiting_sale
+  - awaiting_donation
+terminal_states:
+  - gifted
+  - sold
+  - donated
+  - discarded
+  - recycled
 evidence_status: working_hypothesis
 related:
   - ORG-CON-0002
   - ORG-CON-0003
   - ORG-CON-0004
   - ORG-CON-0005
-extensions:
-  active_states:
-    - owned
-    - loaned
-    - stored_elsewhere
-    - in_repair
-    - awaiting_sale
-    - awaiting_donation
-  terminal_states:
-    - gifted
-    - sold
-    - donated
-    - discarded
-    - recycled
