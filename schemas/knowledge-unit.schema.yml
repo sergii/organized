@@ -1,0 +1,56 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$title: Organized knowledge unit
+$type: object
+
+required:
+  - id
+  - type
+  - slug
+  - status
+  - i18n_key
+  - evidence_status
+
+properties:
+  id:
+    type: string
+    pattern: '^ORG-(PR|HEU|PRA|AP|CON)-[0-9]{4}$'
+
+  type:
+    type: string
+    enum:
+      - principle
+      - heuristic
+      - practice
+      - anti-pattern
+      - concept
+
+  slug:
+    type: string
+    pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+
+  status:
+    type: string
+    enum:
+      - draft
+      - reviewed
+      - stable
+      - deprecated
+
+  i18n_key:
+    type: string
+
+  evidence_status:
+    type: string
+    enum:
+      - working_hypothesis
+      - community_practice
+      - expert_practice
+      - evidence_supported
+      - contested
+
+  related:
+    type: array
+    items:
+      type: string
+
+additionalProperties: true
