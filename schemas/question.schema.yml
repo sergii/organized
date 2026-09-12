@@ -1,0 +1,36 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$title: Organized question
+
+type: object
+required:
+  - id
+  - type
+  - question
+  - status
+
+properties:
+  id:
+    type: string
+    pattern: '^ORG-Q-[0-9]{4}$'
+  type:
+    const: question
+  question:
+    type: string
+  status:
+    enum: [open, answered, recurring, converted_to_gap, closed]
+  case_ids:
+    type: array
+    items: { type: string }
+  related_knowledge:
+    type: array
+    items: { type: string }
+  gap_id:
+    type: string
+  occurrence_count:
+    type: integer
+    minimum: 1
+  notes:
+    type: array
+    items: { type: string }
+
+additionalProperties: true
