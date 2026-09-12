@@ -1,0 +1,67 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://raw.githubusercontent.com/sergii/organized/main/schemas/case.schema.yml
+title: Organized case
+type: object
+required: [id, type, slug, revision, status, situation, objectives, constraints, principles, heuristics, workflow, stop_conditions, warnings, evidence_status]
+properties:
+  id: { type: string, pattern: '^ORG-CASE-[0-9]{4}$' }
+  type: { const: case }
+  slug: { type: string, pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$' }
+  revision: { type: integer, minimum: 1 }
+  status: { type: string, enum: [draft, reviewed, stable, deprecated] }
+  situation:
+    type: object
+    required: [summary]
+    properties:
+      summary: { type: string, minLength: 1 }
+    additionalProperties: false
+  objectives:
+    type: object
+    required: [primary, secondary]
+    properties:
+      primary: { type: string, minLength: 1 }
+      secondary:
+        type: array
+        items: { type: string, minLength: 1 }
+    additionalProperties: false
+  constraints:
+    type: array
+    items: { type: string, minLength: 1 }
+  principles:
+    type: array
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-PR-[0-9]{4}$' }
+  heuristics:
+    type: array
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-HEU-[0-9]{4}$' }
+  practices:
+    type: array
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-PRA-[0-9]{4}$' }
+  workflow:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      required: [id, objective, actions]
+      properties:
+        id: { type: string, pattern: '^[a-z0-9_]+$' }
+        objective: { type: string, minLength: 1 }
+        actions:
+          type: array
+          minItems: 1
+          items: { type: string, minLength: 1 }
+      additionalProperties: false
+  stop_conditions:
+    type: array
+    items: { type: string, minLength: 1 }
+  warnings:
+    type: array
+    items: { type: string, minLength: 1 }
+  evidence_status: { type: string, enum: [working_hypothesis, community_practice, expert_practice, evidence_supported, contested] }
+  source_ids:
+    type: array
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-SRC-[0-9]{4}$' }
+additionalProperties: false

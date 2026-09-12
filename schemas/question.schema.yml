@@ -1,36 +1,26 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-$title: Organized question
-
+$id: https://raw.githubusercontent.com/sergii/organized/main/schemas/question.schema.yml
+title: Organized question
 type: object
-required:
-  - id
-  - type
-  - question
-  - status
-
+required: [id, type, question, status, case_ids, related_knowledge, occurrence_count, notes]
 properties:
-  id:
-    type: string
-    pattern: '^ORG-Q-[0-9]{4}$'
-  type:
-    const: question
-  question:
-    type: string
-  status:
-    enum: [open, answered, recurring, converted_to_gap, closed]
+  id: { type: string, pattern: '^ORG-Q-[0-9]{4}$' }
+  type: { const: question }
+  question: { type: string, minLength: 1 }
+  status: { type: string, enum: [captured, answered, converted_to_gap, closed] }
   case_ids:
     type: array
-    items: { type: string }
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-CASE-[0-9]{4}$' }
   related_knowledge:
     type: array
-    items: { type: string }
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-(PR|HEU|PRA|AP|CON)-[0-9]{4}$' }
   gap_id:
     type: string
-  occurrence_count:
-    type: integer
-    minimum: 1
+    pattern: '^ORG-GAP-[0-9]{4}$'
+  occurrence_count: { type: integer, minimum: 1 }
   notes:
     type: array
-    items: { type: string }
-
-additionalProperties: true
+    items: { type: string, minLength: 1 }
+additionalProperties: false

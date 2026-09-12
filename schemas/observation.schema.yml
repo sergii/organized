@@ -1,39 +1,25 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-$title: Organized observation
-
+$id: https://raw.githubusercontent.com/sergii/organized/main/schemas/observation.schema.yml
+title: Organized observation
 type: object
-required:
-  - id
-  - type
-  - observation_type
-  - statement
-
+required: [id, type, observation_type, case_id, session_id, statement, supports, confidence, notes]
 properties:
-  id:
-    type: string
-    pattern: '^ORG-OBS-[0-9]{4}$'
-  type:
-    const: observation
-  observation_type:
-    enum: [direct, participant_report, inference, source_claim]
-  statement:
-    type: string
-  session_id:
-    type: string
-  source_id:
-    type: string
-  case_id:
-    type: string
+  id: { type: string, pattern: '^ORG-OBS-[0-9]{4}$' }
+  type: { const: observation }
+  observation_type: { type: string, enum: [participant_report, direct_observation, source_claim, inference] }
+  case_id: { type: string, pattern: '^ORG-CASE-[0-9]{4}$' }
+  session_id: { type: string, pattern: '^ORG-SES-[0-9]{4}$' }
+  statement: { type: string, minLength: 1 }
   supports:
     type: array
-    items: { type: string }
-  contradicts:
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-(PR|HEU|PRA|AP|CON)-[0-9]{4}$' }
+  challenges:
     type: array
-    items: { type: string }
-  confidence:
-    enum: [low, medium, high]
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-(PR|HEU|PRA|AP|CON)-[0-9]{4}$' }
+  confidence: { type: string, enum: [low, medium, high] }
   notes:
     type: array
-    items: { type: string }
-
-additionalProperties: true
+    items: { type: string, minLength: 1 }
+additionalProperties: false

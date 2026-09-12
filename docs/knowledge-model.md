@@ -1,92 +1,72 @@
 # Knowledge model
 
-Organized separates **knowledge**, **world state**, **evidence**, and **presentation**.
+Organized is an **open knowledge base first**. Applications, agents, APIs, websites, and content channels consume or project the knowledge; they are not competing sources of truth.
 
-The knowledge layer contains durable concepts, relationships, constraints, workflows, trade-offs, and evidence-aware guidance. The personal world model describes what physically exists for a particular person. Operational records capture sessions, outcomes, observations, questions, conflicts, and knowledge gaps. Locale files contain human-facing wording. Future channel-specific content such as a YouTube script or an Instagram post should be generated from these layers rather than becoming the source of truth.
+The repository separates durable knowledge, real-world evidence, and presentation.
 
 ## Design goals
 
 1. Human-readable without special tooling.
-2. Stable IDs so agents and applications can reference knowledge reliably.
-3. Localizable without duplicating the underlying logic.
-4. Evidence-aware: a rule, heuristic, observation, source claim, and opinion are not the same thing.
-5. Case-driven: complex guidance should compose smaller knowledge units.
-6. Progressive depth: simple questions should receive simple guidance, while complex cases can expose deeper reasoning.
-7. Learn from use: real sessions and outcomes should be able to improve the knowledge base.
-8. Preserve uncertainty: explicit gaps and conflicts are better than false certainty.
-9. Small initial ontology: add structure only when real cases require it.
+2. Machine-validatable and safe to consume programmatically.
+3. Stable IDs for references across agents and applications.
+4. Evidence-aware: principles, heuristics, observations, source claims, gaps, and conflicts are not the same thing.
+5. Case-driven: complex guidance composes smaller durable units.
+6. Localizable without duplicating derived identifiers.
+7. Honest about uncertainty and disagreement.
+8. Evolutionary: add structure when real cases justify it.
 
-## Durable knowledge units
+## Durable knowledge
 
 ### Principle
 
-A durable rule that tends to generalize across domains and situations.
-
-Example: `Touch things to change their state, not merely their location.`
+A durable claim that is expected to generalize across situations. Principles use `statement` as their canonical English claim.
 
 ### Heuristic
 
-A practical shortcut that is useful under known conditions but should not be treated as universally true.
-
-Example: prioritize actions that free a lot of space with little effort and high decision certainty.
+A practical shortcut or ranking aid with known limitations. A heuristic is not an automatic decision rule.
 
 ### Practice
 
-A concrete implementation technique.
-
-Example: create one temporary working zone before processing difficult categories in a crowded room.
+A concrete reusable way of doing something.
 
 ### Anti-pattern
 
-A tempting approach that often creates work without improving the actual state of the system.
-
-Example: repeatedly moving undecided items between surfaces.
+A tempting approach that predictably creates failure or unnecessary work under known conditions.
 
 ### Concept
 
-A stable term used by multiple knowledge units.
-
-Examples: ownership, custody, location, disposition, replacement cost, space burden, mental inventory.
+Stable vocabulary used by other units. Concepts use `definition`, not `statement`.
 
 ### Case
 
-A reusable situation with context, objectives, constraints, stages, and references to relevant knowledge units.
+A reusable situation with context, objectives, constraints, and a workflow that composes durable knowledge. Cases are orchestration, not duplicated knowledge.
 
-Cases are orchestration, not duplicated knowledge.
+## Learning and provenance
 
-## Learning and provenance entities
+- **Session** - one concrete attempt to work through a case.
+- **Outcome** - a change that was actually observed after actions or a session.
+- **Observation** - a normalized report, direct observation, source claim, or explicit inference.
+- **Source** - provenance for external material.
+- **Question** - a user question worth tracking because it may expose reusable knowledge or a gap.
+- **Gap** - an explicit unknown.
+- **Conflict** - competing claims or strategies whose boundaries are not yet resolved.
 
-### Session
+## One-way references
 
-One concrete attempt to work through a case in the real world. A session records starting context, constraints, actions, observations, and outcomes.
+Do not maintain backlinks by hand.
 
-### Outcome
+Examples:
 
-A change observed after an action or session. Outcomes can be quantitative, qualitative, or both.
+- observation -> knowledge it supports or challenges;
+- session -> case;
+- outcome -> session;
+- gap -> case / observations / sources;
+- conflict -> case / observations / sources;
+- knowledge -> external sources it relies on.
 
-### Observation
-
-A normalized statement about something directly observed, reported by a participant, inferred, or extracted as a claim from a source.
-
-### Source
-
-Provenance for an external artifact such as a book, article, study, professional guide, video, interview, manual, or community discussion.
-
-### Question
-
-A captured user question. Repeated or difficult questions can reveal missing or overly implicit knowledge.
-
-### Gap
-
-An explicit unknown or unresolved research question.
-
-### Conflict
-
-A preserved disagreement between claims or strategies. Conflicts should record when each position appears to work rather than forcing premature universal answers.
+Reverse relationships are computed from the repository graph. This prevents pairs of files from silently disagreeing.
 
 ## Stable IDs
-
-Durable knowledge:
 
 - `ORG-PR-*` - principle
 - `ORG-HEU-*` - heuristic
@@ -94,48 +74,33 @@ Durable knowledge:
 - `ORG-AP-*` - anti-pattern
 - `ORG-CON-*` - concept
 - `ORG-CASE-*` - case
-
-Learning and provenance:
-
 - `ORG-SES-*` - session
-- `ORG-OUT-*` - outcome
 - `ORG-OBS-*` - observation
+- `ORG-OUT-*` - outcome
 - `ORG-SRC-*` - source
 - `ORG-Q-*` - question
-- `ORG-GAP-*` - knowledge gap
+- `ORG-GAP-*` - gap
 - `ORG-CF-*` - conflict
 
-IDs should remain stable even when titles or wording change.
+IDs stay stable when wording changes.
 
-## Knowledge vs personal world state
+## Revisions and localization
 
-General knowledge should not be mixed with a person's inventory.
+Localizable durable units and cases have an integer `revision`. Locale entries store `source_revision`; CI rejects stale translations.
 
-```text
-Organized knowledge
-       +
-personal world state
-       +
-goal and constraints
-       ↓
-contextual recommendation
-```
+`i18n_key` is intentionally not stored because it can be derived from type and ID.
 
-See [`world-model.md`](world-model.md).
+See [`localization.md`](localization.md).
 
-## Localization
+## Schema policy
 
-Structured files reference an `i18n_key` when the entity has reusable human-facing copy. Human-facing text is stored in locale files such as `locales/en.yml` and `locales/uk.yml`.
+Top-level entity shapes are strict (`additionalProperties: false`). Experimental, type-specific fields may be placed under an explicit `extensions` object rather than leaking arbitrary fields into the canonical shape.
 
-English is currently the canonical editorial language, but localized text is not secondary output. Ukrainian should be maintained alongside English for published knowledge.
-
-Operational records such as sessions and observations do not need duplicate prose in every locale unless they are promoted into reusable or published knowledge.
+Schemas use JSON Schema draft 2020-12 and declare `$id`. The validator checks schemas, unique IDs, filename/ID agreement, referential integrity, one-way backlink policy, locale completeness, and locale revision freshness.
 
 ## Evidence status
 
-A knowledge unit can start as a useful working hypothesis before it has external evidence. We should say that explicitly rather than pretending every good-sounding principle is proven.
-
-Suggested states:
+Durable knowledge may use:
 
 - `working_hypothesis`
 - `community_practice`
@@ -143,48 +108,8 @@ Suggested states:
 - `evidence_supported`
 - `contested`
 
-Knowledge units can attach sources, observations, outcomes, counterexamples, and confidence separately.
-
-## Learning lifecycle
-
-```text
-external sources + user questions + real sessions
-                    ↓
-                  inbox
-                    ↓
-       observations / normalized claims
-                    ↓
-          compare / challenge / test
-                    ↓
-          knowledge / gaps / conflicts
-                    ↓
-                  cases
-                    ↓
-              recommendations
-                    ↓
-                  action
-                    ↓
-                 outcome
-                    ↓
-               observations
-```
-
-See [`knowledge-lifecycle.md`](knowledge-lifecycle.md).
-
-## Content projections
-
-A future content pipeline may look like this:
-
-```text
-knowledge + case + audience + intent + channel
-                     ↓
-YouTube / blog / Threads / TikTok / Instagram / landing page / app / API
-```
-
-A TikTok hook, a long-form article, and an agent instruction may look completely different while still expressing the same underlying knowledge.
+A good-sounding idea starts as a working hypothesis. It does not become evidence-supported because it has been written in YAML.
 
 ## What should not be encoded
 
-Do not encode obvious facts just because they can be encoded.
-
-A knowledge unit earns its place when explicit representation improves consistency, transfer, evidence tracking, decision quality, case composition, or future learning.
+Do not encode obvious facts merely because they can be encoded. A unit earns its place when explicit representation improves consistency, transfer, evidence tracking, decision quality, case composition, or future learning.

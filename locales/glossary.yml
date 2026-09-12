@@ -1,0 +1,36 @@
+version: 1
+policy: Canonical machine vocabulary stays in English; human-facing localization should use natural Ukrainian terms. When no concise equivalent exists, prefer a short explanatory phrase over an unexplained English insertion.
+terms:
+  possession:
+    en: possession
+    uk: річ у системі володіння
+  ownership:
+    en: ownership
+    uk: належність
+  custody:
+    en: custody
+    uk: фізичне утримання
+  location:
+    en: location
+    uk: місцезнаходження
+  disposition:
+    en: disposition
+    uk: рішення щодо подальшої долі
+  active_inventory:
+    en: active inventory
+    uk: активний облік речей
+  decluttering:
+    en: decluttering
+    uk: розхламлення
+  decluttering_leverage:
+    en: decluttering leverage
+    uk: віддача від розхламлення
+  carrying_cost:
+    en: carrying cost
+    uk: вартість утримання
+  transaction_cost:
+    en: transaction cost
+    uk: витрати на здійснення операції
+  staging_space:
+    en: staging space
+    uk: тимчасова робоча зона

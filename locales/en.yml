@@ -1,64 +1,66 @@
 locale: en
-version: 2
+version: 3
 
 knowledge:
   ORG-PR-0001:
+    source_revision: 1
     title: Touch things to change their state, not merely their location
     summary: Repeatedly moving undecided items creates work without resolving the underlying problem.
     guidance: Prefer interactions that identify an item, resolve ownership, make a decision, complete a disposition, or assign a stable home.
-
   ORG-PR-0002:
+    source_revision: 1
     title: Create capacity before organization
     summary: In a constrained space, the first objective is often to create enough room to think, inspect, sort, and move safely.
     guidance: Remove obvious exits and create a small working zone before attempting detailed organization.
-
   ORG-PR-0003:
+    source_revision: 1
     title: Completed disposition leaves active inventory
     summary: Once an item has truly been gifted, sold, donated, discarded, or recycled, it should no longer occupy active mental inventory.
     guidance: Keep historical records when useful, but separate past possession from current ownership, custody, and responsibility.
-
   ORG-PR-0004:
+    source_revision: 1
     title: Keeping things has a cost
     summary: An item can consume space, attention, maintenance, transport, and future decision effort even when storage itself is free.
     guidance: Compare the benefits of keeping an item with its physical, cognitive, maintenance, and mobility burden rather than treating continued ownership as costless.
-
   ORG-PR-0005:
+    source_revision: 1
     title: Selling has a transaction cost
     summary: Resale value is not the same as the net value of selling after time, effort, coordination, uncertainty, and delivery are considered.
     guidance: Consider whether the expected return is worth the work required, and use a personal resale threshold when repeated low-value sales create friction.
-
   ORG-PR-0006:
+    source_revision: 1
     title: Purchase price is not current value
     summary: What an item cost in the past is not the same as what it is worth economically or personally today.
     guidance: Base current decisions on present utility, replacement cost, resale value, condition, rarity, and personal value rather than sunk purchase price.
-
   ORG-HEU-0001:
+    source_revision: 1
     title: Decluttering leverage
     summary: In constrained spaces, prioritize actions that free meaningful capacity with high decision certainty and low effort.
     guidance: Use this as a ranking aid, not an automatic disposal rule. Ownership, safety, emotional value, and irreversible consequences can override it.
-
   ORG-CON-0001:
+    source_revision: 1
     title: Possession
-    summary: An item or asset that is relevant to a person's active or historical relationship with ownership, custody, use, storage, or disposition.
-
+    summary: An item or asset relevant to a person's active or historical relationship with ownership, custody, use, storage, or disposition.
   ORG-CON-0002:
+    source_revision: 1
     title: Ownership
     summary: Who has the primary claim to an item and authority over irreversible decisions about it.
-
   ORG-CON-0003:
+    source_revision: 1
     title: Custody
     summary: Who currently physically holds, controls, or is responsible for an item, regardless of ownership.
-
   ORG-CON-0004:
+    source_revision: 1
     title: Location
     summary: The current physical place where an item is expected to be found.
-
   ORG-CON-0005:
+    source_revision: 1
     title: Disposition
     summary: The current lifecycle decision or intended route for an item, such as keep, relocate, lend, sell, donate, recycle, discard, or unresolved review.
 
 cases:
   ORG-CASE-0001:
+    source_revision: 1
     title: Decluttering a constrained room
     summary: A small room is densely occupied by furniture, boxes, papers, unknown belongings, and items with unclear ownership, value, or future use.
     problem: The room does not provide enough free capacity to sort everything conventionally, so repeatedly moving objects can create activity without progress.

@@ -2,7 +2,8 @@ id: ORG-CF-0001
 type: conflict
 title: All-at-once sorting versus capacity-first incremental processing
 status: open
-
+case_ids:
+  - ORG-CASE-0001
 positions:
   - id: all_at_once
     claim: Remove or expose an entire category before deciding what to keep so the full set can be evaluated together.
@@ -15,7 +16,6 @@ positions:
       - work_must_stop_and_restart_frequently
     source_ids: []
     observation_ids: []
-
   - id: capacity_first
     claim: In a severely constrained space, first complete high-certainty exits and create a stable working zone before processing difficult categories.
     works_when:
@@ -28,9 +28,7 @@ positions:
     source_ids: []
     observation_ids:
       - ORG-OBS-0001
-
 current_interpretation: These strategies may not be universally contradictory. Available staging capacity and the need to compare a whole category may determine which strategy is appropriate.
-
 unresolved_questions:
   - What minimum staging capacity makes all-at-once category sorting practical?
   - How much rehandling does incremental processing create compared with all-at-once sorting?

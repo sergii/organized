@@ -1,0 +1,59 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://raw.githubusercontent.com/sergii/organized/main/schemas/principle.schema.yml
+title: Organized principle
+type: object
+required: [id, type, slug, revision, status, statement, evidence_status, related]
+properties:
+  id:
+    type: string
+    pattern: '^ORG-PR-[0-9]{4}$'
+  type:
+    const: principle
+  slug:
+    type: string
+    pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+  revision:
+    type: integer
+    minimum: 1
+  status:
+    type: string
+    enum: [draft, reviewed, stable, deprecated]
+  statement:
+    type: string
+    minLength: 1
+  intent:
+    type: array
+    uniqueItems: true
+    items: { type: string, minLength: 1 }
+  applies_when:
+    type: array
+    uniqueItems: true
+    items: { type: string, minLength: 1 }
+  reasoning:
+    type: array
+    items: { type: string, minLength: 1 }
+  considerations:
+    type: array
+    uniqueItems: true
+    items: { type: string, minLength: 1 }
+  exceptions:
+    type: array
+    items: { type: string, minLength: 1 }
+  evidence_status:
+    type: string
+    enum: [working_hypothesis, community_practice, expert_practice, evidence_supported, contested]
+  source_ids:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+      pattern: '^ORG-SRC-[0-9]{4}$'
+  related:
+    type: array
+    uniqueItems: true
+    items:
+      type: string
+      pattern: '^ORG-(PR|HEU|PRA|AP|CON)-[0-9]{4}$'
+  extensions:
+    type: object
+additionalProperties: false

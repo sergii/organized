@@ -1,0 +1,34 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://raw.githubusercontent.com/sergii/organized/main/schemas/concept.schema.yml
+title: Organized concept
+type: object
+required: [id, type, slug, revision, status, definition, evidence_status, related]
+properties:
+  id:
+    type: string
+    pattern: '^ORG-CON-[0-9]{4}$'
+  type: { const: concept }
+  slug:
+    type: string
+    pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+  revision: { type: integer, minimum: 1 }
+  status:
+    type: string
+    enum: [draft, reviewed, stable, deprecated]
+  definition: { type: string, minLength: 1 }
+  notes:
+    type: array
+    items: { type: string, minLength: 1 }
+  evidence_status:
+    type: string
+    enum: [working_hypothesis, community_practice, expert_practice, evidence_supported, contested]
+  source_ids:
+    type: array
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-SRC-[0-9]{4}$' }
+  related:
+    type: array
+    uniqueItems: true
+    items: { type: string, pattern: '^ORG-(PR|HEU|PRA|AP|CON)-[0-9]{4}$' }
+  extensions: { type: object }
+additionalProperties: false

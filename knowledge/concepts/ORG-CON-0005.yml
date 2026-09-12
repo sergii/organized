@@ -1,16 +1,13 @@
 id: ORG-CON-0005
 type: concept
 slug: disposition
+revision: 1
 status: draft
-i18n_key: knowledge.ORG-CON-0005
-evidence_status: working_hypothesis
-
 definition: The current lifecycle decision or intended route for an item, such as keep, relocate, lend, sell, donate, recycle, discard, or unresolved review.
-
 notes:
   - Disposition is a decision state, not merely a storage location.
   - Gifted, sold, donated, recycled, and discarded can be terminal states when responsibility has ended.
-
+evidence_status: working_hypothesis
 related:
   - ORG-CON-0001
   - ORG-CON-0002

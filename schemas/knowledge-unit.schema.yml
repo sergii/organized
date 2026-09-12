@@ -1,69 +1,9 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-$title: Organized knowledge unit
-
-type: object
-
-required:
-  - id
-  - type
-  - slug
-  - status
-  - i18n_key
-  - evidence_status
-
-properties:
-  id:
-    type: string
-    pattern: '^ORG-(PR|HEU|PRA|AP|CON)-[0-9]{4}$'
-
-  type:
-    type: string
-    enum:
-      - principle
-      - heuristic
-      - practice
-      - anti-pattern
-      - concept
-
-  slug:
-    type: string
-    pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-
-  status:
-    type: string
-    enum:
-      - draft
-      - reviewed
-      - stable
-      - deprecated
-
-  i18n_key:
-    type: string
-
-  evidence_status:
-    type: string
-    enum:
-      - working_hypothesis
-      - community_practice
-      - expert_practice
-      - evidence_supported
-      - contested
-
-  source_ids:
-    type: array
-    items:
-      type: string
-      pattern: '^ORG-SRC-[0-9]{4}$'
-
-  observation_ids:
-    type: array
-    items:
-      type: string
-      pattern: '^ORG-OBS-[0-9]{4}$'
-
-  related:
-    type: array
-    items:
-      type: string
-
-additionalProperties: true
+$id: https://raw.githubusercontent.com/sergii/organized/main/schemas/knowledge-unit.schema.yml
+title: Organized durable knowledge unit
+oneOf:
+  - $ref: principle.schema.yml
+  - $ref: heuristic.schema.yml
+  - $ref: concept.schema.yml
+  - $ref: practice.schema.yml
+  - $ref: anti-pattern.schema.yml
