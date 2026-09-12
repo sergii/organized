@@ -1,0 +1,43 @@
+id: ORG-PR-0002
+type: principle
+slug: create-capacity-before-organization
+status: draft
+i18n_key: knowledge.ORG-PR-0002
+
+statement:
+  canonical: When working space is constrained, create capacity before attempting organization.
+
+intent:
+  - increase_maneuvering_space
+  - avoid_repeated_rehandling
+  - enable_better_decisions
+
+applies_when:
+  - small_room
+  - room_already_full
+  - moving
+  - downsizing
+  - dense_storage
+
+reasoning:
+  - Organization requires working space for sorting, comparison, inspection, and temporary staging.
+  - In a constrained environment, early actions should increase available capacity rather than optimize final placement.
+
+preferred_early_actions:
+  - remove_obvious_trash
+  - remove_empty_packaging
+  - complete_obvious_exits
+  - isolate_foreign_ownership
+  - remove_large_low_value_items_when_decision_certainty_is_high
+  - establish_a_small_working_zone
+
+avoid_early:
+  - detailed_sentimental_sorting
+  - low_volume_high_attention_categories
+  - buying_storage_before_reduction
+
+evidence_status: working_hypothesis
+
+related:
+  - ORG-PR-0001
+  - ORG-HEU-0001
