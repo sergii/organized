@@ -1,0 +1,34 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$title: Organized outcome
+
+type: object
+required:
+  - id
+  - type
+  - session_id
+  - description
+
+properties:
+  id:
+    type: string
+    pattern: '^ORG-OUT-[0-9]{4}$'
+  type:
+    const: outcome
+  session_id:
+    type: string
+  action_id:
+    type: string
+  description:
+    type: string
+  measures:
+    type: object
+    additionalProperties: true
+  qualitative:
+    type: array
+    items: { type: string }
+  observed_at:
+    type: string
+  confidence:
+    enum: [low, medium, high]
+
+additionalProperties: true
