@@ -39,6 +39,26 @@ properties:
   exceptions:
     type: array
     items: { type: string, minLength: 1 }
+  state_change_examples:
+    type: array
+    uniqueItems: true
+    items: { type: string, minLength: 1 }
+  preferred_early_actions:
+    type: array
+    uniqueItems: true
+    items: { type: string, minLength: 1 }
+  avoid_early:
+    type: array
+    uniqueItems: true
+    items: { type: string, minLength: 1 }
+  active_states:
+    type: array
+    uniqueItems: true
+    items: { type: string, minLength: 1 }
+  terminal_states:
+    type: array
+    uniqueItems: true
+    items: { type: string, minLength: 1 }
   evidence_status:
     type: string
     enum: [working_hypothesis, community_practice, expert_practice, evidence_supported, contested]
@@ -54,6 +74,4 @@ properties:
     items:
       type: string
       pattern: '^ORG-(PR|HEU|PRA|AP|CON)-[0-9]{4}$'
-  extensions:
-    type: object
 additionalProperties: false
