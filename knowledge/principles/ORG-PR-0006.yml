@@ -1,18 +1,14 @@
 id: ORG-PR-0006
 type: principle
 slug: purchase-price-is-not-current-value
+revision: 1
 status: draft
-i18n_key: knowledge.ORG-PR-0006
-evidence_status: working_hypothesis
-
-claim: The amount originally paid for an item should not be treated as its current economic or personal value.
-
+statement: The amount originally paid for an item should not be treated as its current economic or personal value.
 reasoning:
   - Purchase price is historical and usually unrecoverable.
   - Current decisions depend more on present utility, replacement cost, resale value, condition, rarity, and personal value.
   - Anchoring on the original price can keep low-value items active long after their useful role has ended.
-
-consider:
+considerations:
   - current_utility
   - replacement_cost
   - expected_resale_value
@@ -20,10 +16,9 @@ consider:
   - rarity
   - sentimental_value
   - historical_value
-
 exceptions:
   - Purchase records may remain important for warranty, insurance, tax, provenance, or accounting purposes.
-
+evidence_status: working_hypothesis
 related:
   - ORG-PR-0004
   - ORG-PR-0005

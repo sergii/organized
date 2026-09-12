@@ -1,12 +1,10 @@
 id: ORG-CASE-0001
 type: case
 slug: declutter-constrained-space
+revision: 1
 status: draft
-i18n_key: cases.ORG-CASE-0001
-
 situation:
   summary: A small room is already densely occupied by furniture, boxes, papers, unknown belongings, and items with unclear ownership, value, or future use.
-
 objectives:
   primary: Create enough physical and cognitive capacity to make good decisions.
   secondary:
@@ -15,7 +13,6 @@ objectives:
     - resolve_ownership
     - complete_obvious_dispositions
     - organize_only_what_survives
-
 constraints:
   - limited_floor_area
   - limited_staging_area
@@ -23,7 +20,6 @@ constraints:
   - uncertain_ownership
   - uncertain_value
   - emotional_items_may_be_present
-
 principles:
   - ORG-PR-0001
   - ORG-PR-0002
@@ -31,19 +27,8 @@ principles:
   - ORG-PR-0004
   - ORG-PR-0005
   - ORG-PR-0006
-
 heuristics:
   - ORG-HEU-0001
-
-open_gaps:
-  - ORG-GAP-0001
-
-conflicts:
-  - ORG-CF-0001
-
-example_sessions:
-  - ORG-SES-0001
-
 workflow:
   - id: establish_rules
     objective: Prevent unsafe or irreversible decisions.
@@ -51,26 +36,22 @@ workflow:
       - Do not discard items with unclear ownership.
       - Separate obvious decisions from difficult decisions.
       - Reserve a temporary zone for items requiring later review.
-
   - id: zero_decision_exits
     objective: Gain capacity with minimal cognitive cost.
     actions:
       - Remove obvious trash.
       - Remove empty packaging and clearly useless containers.
       - Complete already-decided returns, donations, recycling, or disposal where practical.
-
   - id: create_working_zone
     objective: Establish a stable area for inspection and sorting.
     actions:
       - Free a small floor, table, or shelf area.
       - Keep the zone from becoming permanent storage.
-
   - id: resolve_large_high_leverage_items
     objective: Increase maneuvering room quickly.
     actions:
       - Identify bulky items with high decision certainty.
       - Prioritize removal when ownership, safety, and disposition are clear.
-
   - id: reduce_uncertainty
     objective: Turn unknown objects into identifiable decisions.
     actions:
@@ -78,30 +59,25 @@ workflow:
       - Identify approximate contents and owner.
       - Record location when an owned item is physically elsewhere.
       - Distinguish active possession from gifted, sold, donated, or discarded history.
-
   - id: process_survivors
     objective: Decide what deserves space in the room or elsewhere.
     actions:
       - Evaluate utility, future utility, replaceability, financial value, sentimental value, and storage burden when relevant.
       - Route items to keep, relocate, lend, sell, donate, recycle, discard, or unresolved review.
       - Consider the carrying cost of keeping an item and the transaction cost of selling it when those costs materially affect the decision.
-
   - id: organize_after_reduction
     objective: Give surviving items stable homes.
     actions:
       - Organize around real use and retrieval patterns.
       - Avoid buying storage for categories whose size is still changing.
-
 stop_conditions:
   - working_zone_exists
   - obvious_exits_are_processed
   - remaining_items_have_known_or_explicitly_unknown_state
   - survivors_can_be_organized_without_repeated_shuffling
-
 warnings:
   - Do not treat sentimental value as invalid just because it is non-functional.
   - Do not use non-use duration as an automatic discard rule.
   - Do not optimize physical space at the expense of ownership, safety, legal obligations, or irreplaceable value.
   - Do not treat purchase price as current value.
-
 evidence_status: working_hypothesis

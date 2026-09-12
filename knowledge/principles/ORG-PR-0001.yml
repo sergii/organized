@@ -1,42 +1,34 @@
 id: ORG-PR-0001
 type: principle
 slug: touch-to-change-state
+revision: 1
 status: draft
-i18n_key: knowledge.ORG-PR-0001
-
-statement:
-  canonical: Touch things to change their state, not merely their location.
-
+statement: Touch things to change their state, not merely their location.
 intent:
   - reduce_rework
   - reduce_decision_debt
   - make_progress_observable
-
 applies_when:
   - decluttering
   - sorting
   - moving
   - organizing_constrained_space
-
 reasoning:
   - Moving an undecided item can create visible activity without changing the underlying problem.
   - A useful interaction should preferably produce new information, a decision, a disposition, or a stable home.
-
-state_change_examples:
-  - unknown_to_identified
-  - ownership_unclear_to_resolved
-  - undecided_to_keep
-  - undecided_to_sell
-  - undecided_to_donate
-  - undecided_to_discard
-  - unlocated_to_assigned_home
-
 exceptions:
   - Moving items temporarily can be necessary to create a safe working zone.
   - Emergency access and safety take priority over state-change efficiency.
-
 evidence_status: working_hypothesis
-
 related:
   - ORG-PR-0002
   - ORG-HEU-0001
+extensions:
+  state_change_examples:
+    - unknown_to_identified
+    - ownership_unclear_to_resolved
+    - undecided_to_keep
+    - undecided_to_sell
+    - undecided_to_donate
+    - undecided_to_discard
+    - unlocated_to_assigned_home
