@@ -1,0 +1,18 @@
+id: ORG-CON-0001
+type: concept
+slug: possession
+status: draft
+i18n_key: knowledge.ORG-CON-0001
+evidence_status: working_hypothesis
+
+definition: An item or asset that is relevant to a person's active or historical relationship with ownership, custody, use, storage, or disposition.
+
+notes:
+  - Possession should not be treated as synonymous with physical presence in the home.
+  - Historical possession may remain recorded after active responsibility has ended.
+
+related:
+  - ORG-CON-0002
+  - ORG-CON-0003
+  - ORG-CON-0004
+  - ORG-CON-0005
