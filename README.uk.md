@@ -25,35 +25,97 @@ Organized намагається зробити таке знання явним
 - provenance та evidence;
 - накопичені результати реальних кейсів.
 
+## Це не статична енциклопедія
+
+Organized має вчитися як із зовнішніх джерел, так і з реального використання.
+
+```text
+книжки / статті / дослідження
+професійна практика
+досвід community
+питання користувачів
+реальні sessions
+          │
+          ▼
+        inbox
+          │
+          ▼
+ observations / normalized claims
+          │
+          ▼
+ knowledge / gaps / conflicts
+          │
+          ▼
+         cases
+          │
+          ▼
+ recommendations
+          │
+          ▼
+         action
+          │
+          ▼
+        outcome
+          │
+          └──────────────► observations
+```
+
+Детальніше: [`docs/knowledge-lifecycle.md`](docs/knowledge-lifecycle.md).
+
 ## Модель знань
 
-Наразі Organized використовує такі будівельні блоки:
+Стійке знання наразі складається з:
 
 - **Principles** - стійкі правила, які узагальнюються на різні ситуації.
 - **Heuristics** - корисні скорочення, які не є універсально правильними.
 - **Practices** - конкретні способи щось робити.
 - **Anti-patterns** - підходи, які виглядають корисними, але часто не працюють.
 - **Concepts** - словник, потрібний для послідовного reasoning.
-- **Cases** - реальні ситуації, які компонують кілька knowledge units у workflow.
+- **Cases** - повторно використовувані ситуації, які компонують knowledge units у workflow.
+
+Навчання та provenance використовують:
+
+- **Sessions** - конкретні спроби пройти case у реальному світі.
+- **Outcomes** - що реально змінилося після дії або session.
+- **Observations** - нормалізовані факти, повідомлення, inference або claims із джерел.
+- **Sources** - походження зовнішнього знання.
+- **Questions** - питання користувачів, які можуть показувати прогалини.
+- **Gaps** - явні невідомі.
+- **Conflicts** - конкуруючі підходи, межі застосовності яких ще треба зрозуміти.
 
 Case не замінює базу знань. Він вибирає і впорядковує те знання, яке важливе в конкретній ситуації.
 
-## Перший кейс
+Детальніше: [`docs/knowledge-model.md`](docs/knowledge-model.md).
+
+## Knowledge і персональний стан світу
+
+Organized окремо тримає загальні рекомендації та стан фізичного світу конкретної людини.
+
+Річ може належати одній людині, фізично бути в іншої, лежати в третьому місці й усе ще вимагати майбутньої дії. Тому ownership, custody, location і disposition - різні факти.
+
+Детальніше: [`docs/world-model.md`](docs/world-model.md).
+
+## Перший living case
 
 Перший робочий case - **decluttering у просторі з жорсткими обмеженнями**: невелика кімната вже заповнена меблями, коробками, паперами, невідомими речами та предметами з незрозумілим власником або цінністю. Мета не в тому, щоб кімната одразу виглядала охайно. Перша мета - створити достатньо вільного простору, щоб можна було нормально приймати рішення.
 
-Дивись [`cases/ORG-CASE-0001.yml`](cases/ORG-CASE-0001.yml).
+- Case: [`cases/ORG-CASE-0001.yml`](cases/ORG-CASE-0001.yml)
+- Запланована реальна session: [`sessions/ORG-SES-0001.yml`](sessions/ORG-SES-0001.yml)
+- Відкритий knowledge gap: [`gaps/ORG-GAP-0001.yml`](gaps/ORG-GAP-0001.yml)
+- Відкритий conflict стратегій: [`conflicts/ORG-CF-0001.yml`](conflicts/ORG-CF-0001.yml)
 
 ## Мови
 
 Англійська - canonical working language. Українська підтримується як повноцінна локалізація.
 
-Людський текст зберігається у locale-файлах:
+Повторно використовуваний людський текст зберігається у locale-файлах:
 
 - [`locales/en.yml`](locales/en.yml)
 - [`locales/uk.yml`](locales/uk.yml)
 
-Стабільні ID зв'язують локалізований текст із underlying knowledge units. Це дає змогу в майбутньому використовувати одну й ту саму базу для документації, API, застосунків, блог-постів, landing pages, YouTube, Threads, TikTok, Instagram та інших представлень, не роблячи жоден із цих форматів source of truth.
+Стабільні ID зв'язують локалізований текст із underlying knowledge units. Сирі observations і sessions не мусять дублювати кожне поле двома мовами, якщо вони ще не стали reusable або published knowledge.
+
+Це дозволяє одній базі знань у майбутньому живити документацію, API, застосунки, блог-пости, landing pages, YouTube, Threads, TikTok, Instagram та інші представлення, не роблячи жоден із цих форматів source of truth.
 
 ## Структура репозиторію
 
@@ -62,19 +124,30 @@ organized/
 ├── README.md
 ├── README.uk.md
 ├── docs/
-│   └── knowledge-model.md
+│   ├── knowledge-model.md
+│   ├── knowledge-lifecycle.md
+│   └── world-model.md
 ├── knowledge/
 │   ├── principles/
-│   └── heuristics/
+│   ├── heuristics/
+│   └── concepts/
 ├── cases/
+├── sessions/
+├── outcomes/
+├── observations/
+├── questions/
+├── gaps/
+├── conflicts/
+├── sources/
+├── inbox/
 ├── locales/
 │   ├── en.yml
 │   └── uk.yml
 └── schemas/
 ```
 
-Структура навмисно маленька. Ми будемо вирощувати taxonomy з реальних cases, а не проєктувати велику ontology наперед.
+Структура навмисно еволюційна. Ми будемо вирощувати модель із реальних cases, а не проєктувати велику ontology наперед.
 
 ## Статус
 
-Ранній foundation. Поточні knowledge units є drafts і мають вважатися робочими гіпотезами, доки не отримають сильніший provenance, counterexamples та evidence.
+Ранній foundation. Поточні knowledge units є drafts і мають вважатися робочими гіпотезами, доки не отримають сильніший provenance, counterexamples, зовнішні sources та реальні outcomes.
