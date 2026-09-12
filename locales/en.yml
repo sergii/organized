@@ -1,5 +1,5 @@
 locale: en
-version: 1
+version: 2
 
 knowledge:
   ORG-PR-0001:
@@ -17,10 +17,45 @@ knowledge:
     summary: Once an item has truly been gifted, sold, donated, discarded, or recycled, it should no longer occupy active mental inventory.
     guidance: Keep historical records when useful, but separate past possession from current ownership, custody, and responsibility.
 
+  ORG-PR-0004:
+    title: Keeping things has a cost
+    summary: An item can consume space, attention, maintenance, transport, and future decision effort even when storage itself is free.
+    guidance: Compare the benefits of keeping an item with its physical, cognitive, maintenance, and mobility burden rather than treating continued ownership as costless.
+
+  ORG-PR-0005:
+    title: Selling has a transaction cost
+    summary: Resale value is not the same as the net value of selling after time, effort, coordination, uncertainty, and delivery are considered.
+    guidance: Consider whether the expected return is worth the work required, and use a personal resale threshold when repeated low-value sales create friction.
+
+  ORG-PR-0006:
+    title: Purchase price is not current value
+    summary: What an item cost in the past is not the same as what it is worth economically or personally today.
+    guidance: Base current decisions on present utility, replacement cost, resale value, condition, rarity, and personal value rather than sunk purchase price.
+
   ORG-HEU-0001:
     title: Decluttering leverage
     summary: In constrained spaces, prioritize actions that free meaningful capacity with high decision certainty and low effort.
     guidance: Use this as a ranking aid, not an automatic disposal rule. Ownership, safety, emotional value, and irreversible consequences can override it.
+
+  ORG-CON-0001:
+    title: Possession
+    summary: An item or asset that is relevant to a person's active or historical relationship with ownership, custody, use, storage, or disposition.
+
+  ORG-CON-0002:
+    title: Ownership
+    summary: Who has the primary claim to an item and authority over irreversible decisions about it.
+
+  ORG-CON-0003:
+    title: Custody
+    summary: Who currently physically holds, controls, or is responsible for an item, regardless of ownership.
+
+  ORG-CON-0004:
+    title: Location
+    summary: The current physical place where an item is expected to be found.
+
+  ORG-CON-0005:
+    title: Disposition
+    summary: The current lifecycle decision or intended route for an item, such as keep, relocate, lend, sell, donate, recycle, discard, or unresolved review.
 
 cases:
   ORG-CASE-0001:
