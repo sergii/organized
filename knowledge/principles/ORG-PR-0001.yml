@@ -19,16 +19,15 @@ reasoning:
 exceptions:
   - Moving items temporarily can be necessary to create a safe working zone.
   - Emergency access and safety take priority over state-change efficiency.
+state_change_examples:
+  - unknown_to_identified
+  - ownership_unclear_to_resolved
+  - undecided_to_keep
+  - undecided_to_sell
+  - undecided_to_donate
+  - undecided_to_discard
+  - unlocated_to_assigned_home
 evidence_status: working_hypothesis
 related:
   - ORG-PR-0002
   - ORG-HEU-0001
-extensions:
-  state_change_examples:
-    - unknown_to_identified
-    - ownership_unclear_to_resolved
-    - undecided_to_keep
-    - undecided_to_sell
-    - undecided_to_donate
-    - undecided_to_discard
-    - unlocated_to_assigned_home
