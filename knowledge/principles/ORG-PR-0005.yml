@@ -1,0 +1,28 @@
+id: ORG-PR-0005
+type: principle
+slug: selling-has-a-transaction-cost
+status: draft
+i18n_key: knowledge.ORG-PR-0005
+evidence_status: working_hypothesis
+
+claim: Resale value should be considered together with the time, effort, uncertainty, and coordination required to realize that value.
+
+reasoning:
+  - Selling often requires cleaning, photographing, listing, answering messages, negotiating, packing, delivery, or meeting buyers.
+  - A theoretically saleable item may have low net value after transaction effort.
+  - A personal resale threshold can reduce repeated low-value decisions.
+
+consider:
+  - expected_resale_value
+  - expected_time_cost
+  - listing_effort
+  - delivery_effort
+  - fraud_or_no_show_risk
+  - urgency_to_free_space
+
+exceptions:
+  - Low-value sales may still be worthwhile for environmental, community, or personal reasons.
+
+related:
+  - ORG-PR-0004
+  - ORG-CON-0005
