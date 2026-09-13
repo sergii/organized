@@ -62,6 +62,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/eval-runner')
     needs: validate-evals
     runs-on: ubuntu-24.04
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     steps:
       - uses: actions/checkout@v7
       - uses: ruby/setup-ruby@v1
@@ -105,15 +107,12 @@ jobs:
       - name: Run eval
         if: env.OPENAI_API_KEY != ''
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ steps.config.outputs.model }}
           OPENAI_JUDGE_MODEL: ${{ steps.config.outputs.judge_model }}
           OPENAI_REASONING_EFFORT: ${{ steps.config.outputs.reasoning_effort }}
         run: bundle exec ruby evals/bin/run.rb '${{ steps.config.outputs.scenario }}'
       - name: Explain missing API key
         if: env.OPENAI_API_KEY == ''
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           echo 'OPENAI_API_KEY is not configured.'
           echo 'Add it as a GitHub Actions repository secret, then trigger the eval again.'
