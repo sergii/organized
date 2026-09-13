@@ -153,6 +153,23 @@ def with_word_count(result)
   result.merge("word_count" => result.fetch("text").scan(/\S+/).length)
 end
 
+def normalize_coverage!(coverage_data, expectations)
+  %w[response_x response_y response_z].each do |response_key|
+    score = coverage_data.fetch(response_key)
+    covered = Array(score["covered"]).select { |item| expectations.include?(item) }.uniq
+    missed = expectations - covered
+    score["covered"] = covered
+    score["missed"] = missed
+    score["coverage_percent"] = expectations.empty? ? 100 : ((covered.length * 100.0) / expectations.length).round
+  end
+end
+
+def average(values)
+  return 0 if values.empty?
+
+  (values.sum.to_f / values.length).round(2)
+end
+
 scenario_id = ARGV.fetch(0, "ORG-EVAL-0001")
 scenario_rel = "evals/scenarios/#{scenario_id}.yml"
 abort "unknown scenario: #{scenario_id}" unless File.file?(File.join(ROOT, scenario_rel))
@@ -168,6 +185,9 @@ abort "EVAL_REPETITIONS must be between 1 and 10" unless (1..10).cover?(repetiti
 
 scenario = load_yaml(scenario_rel)
 user_input = scenario.fetch("user_input")
+expectations = Array(scenario.dig("hidden_expectations", "useful_reasoning_properties"))
+abort "scenario must define hidden_expectations.useful_reasoning_properties" if expectations.empty?
+
 client = OpenAIResponses.new(api_key: api_key, model: model, reasoning_effort: reasoning_effort)
 judge_client = OpenAIResponses.new(api_key: api_key, model: judge_model, reasoning_effort: reasoning_effort)
 
@@ -241,12 +261,18 @@ conditions = {
 rubric = read("evals/rubrics/advice-quality.yml")
 runs = []
 wins = Hash.new(0)
+coverage_values = Hash.new { |hash, key| hash[key] = [] }
+metric_values = Hash.new { |hash, key| hash[key] = { "input_tokens" => [], "total_tokens" => [], "latency_ms" => [] } }
 
 repetitions.times do |index|
   execution_order = conditions.keys.shuffle(random: Random.new(SecureRandom.random_number(2**31)))
   answers = {}
   execution_order.each do |condition|
     answers[condition] = with_word_count(client.call(input: user_input, instructions: conditions.fetch(condition)))
+    usage = answers[condition].fetch("usage", {})
+    metric_values[condition]["input_tokens"] << usage.fetch("input_tokens", 0)
+    metric_values[condition]["total_tokens"] << usage.fetch("total_tokens", 0)
+    metric_values[condition]["latency_ms"] << answers[condition].fetch("latency_ms")
   end
 
   labels = %w[x y z].shuffle(random: Random.new(SecureRandom.random_number(2**31)))
@@ -277,6 +303,38 @@ repetitions.times do |index|
   judge["data"] = JSON.parse(judge.delete("text"))
   judge["blind_mapping"] = label_to_condition
 
+  coverage_input = <<~INPUT
+    USER MESSAGE:
+    #{user_input}
+
+    HIDDEN EXPECTATIONS:
+    #{expectations.map { |item| "- #{item}" }.join("\n")}
+
+    RESPONSE X:
+    #{answers.fetch(label_to_condition.fetch("x")).fetch("text")}
+
+    RESPONSE Y:
+    #{answers.fetch(label_to_condition.fetch("y")).fetch("text")}
+
+    RESPONSE Z:
+    #{answers.fetch(label_to_condition.fetch("z")).fetch("text")}
+  INPUT
+
+  coverage = judge_client.call(
+    input: coverage_input,
+    instructions: read("evals/prompts/coverage-judge.md"),
+    schema: strict_schema("evals/schemas/knowledge-coverage-v1.schema.yml"),
+    schema_name: "knowledge_coverage_v1"
+  )
+  coverage["data"] = JSON.parse(coverage.delete("text"))
+  normalize_coverage!(coverage.fetch("data"), expectations)
+  coverage["blind_mapping"] = label_to_condition
+
+  %w[x y z].each do |label|
+    condition = label_to_condition.fetch(label)
+    coverage_values[condition] << coverage.dig("data", "response_#{label}", "coverage_percent")
+  end
+
   blind_winner = judge.dig("data", "winner")
   winner = blind_winner == "tie" ? "tie" : label_to_condition.fetch(blind_winner)
   wins[winner] += 1
@@ -285,11 +343,26 @@ repetitions.times do |index|
     "repetition" => index + 1,
     "execution_order" => execution_order,
     "answers" => answers,
-    "judge" => judge,
+    "preference_judge" => judge,
+    "coverage_judge" => coverage,
     "winner" => winner
   }
 
-  puts "repetition=#{index + 1}/#{repetitions} winner=#{winner} mapping=#{label_to_condition}"
+  coverage_summary = conditions.keys.to_h { |condition| [condition, coverage_values[condition].last] }
+  puts "repetition=#{index + 1}/#{repetitions} winner=#{winner} coverage=#{coverage_summary}"
+end
+
+aggregate_metrics = conditions.keys.to_h do |condition|
+  metrics = metric_values.fetch(condition)
+  [
+    condition,
+    {
+      "avg_input_tokens" => average(metrics.fetch("input_tokens")),
+      "avg_total_tokens" => average(metrics.fetch("total_tokens")),
+      "avg_latency_ms" => average(metrics.fetch("latency_ms")),
+      "avg_coverage_percent" => average(coverage_values.fetch(condition))
+    }
+  ]
 end
 
 run_id = "#{Time.now.utc.strftime('%Y%m%dT%H%M%SZ')}-#{SecureRandom.hex(4)}"
@@ -304,12 +377,16 @@ result = {
   "reasoning_effort" => reasoning_effort,
   "repetitions" => repetitions,
   "user_input" => user_input,
+  "hidden_expectations" => expectations,
   "extraction" => extraction,
   "full_knowledge_ids" => full_records.map(&:first),
   "retrieval" => retrieval,
   "retrieved_knowledge_ids" => retrieved_ids,
   "runs" => runs,
-  "aggregate" => { "wins" => wins }
+  "aggregate" => {
+    "preference_wins" => wins,
+    "metrics" => aggregate_metrics
+  }
 }
 
 output_dir = File.join(ROOT, "tmp/evals", scenario_id)
@@ -319,4 +396,5 @@ File.write(output_path, JSON.pretty_generate(result) + "\n")
 
 puts "wrote #{output_path.delete_prefix("#{ROOT}/")}" 
 puts "retrieved=#{retrieved_ids.join(',')}"
-puts "wins=#{wins}"
+puts "preference_wins=#{wins}"
+puts "metrics=#{aggregate_metrics}"
