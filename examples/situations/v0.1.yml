@@ -1,0 +1,231 @@
+examples:
+  - id: SM-EX-001
+    situation:
+      contract_version: '0.1'
+      raw_input: >-
+        У мене кімната метрів 16, коробки стоять скрізь, диван завалений,
+        я вже не знаю з чого почати і думаю просто купити нормальні бокси.
+      facts:
+        - text: Кімната має приблизно 16 м².
+          source: user
+        - text: Коробки займають багато доступного простору.
+          source: user
+        - text: Диван завалений речами.
+          source: user
+      goals:
+        - text: Почати розбирати кімнату.
+          source: user
+      constraints:
+        - text: Доступний робочий простір обмежений.
+          source: inferred
+          confidence: 0.9
+      uncertainties:
+        - text: Невідомо, що знаходиться в коробках і скільки речей залишиться після розбору.
+          source: inferred
+          confidence: 0.9
+      hypotheses:
+        - text: Передчасна купівля контейнерів може закріпити поточний обсяг речей.
+          source: inferred
+          confidence: 0.75
+      entities:
+        - ref: E1
+          kind: space
+          label: кімната
+          attributes:
+            area_m2: 16
+        - ref: E2
+          kind: container
+          label: коробки
+          attributes: {}
+        - ref: E3
+          kind: furniture
+          label: диван
+          attributes: {}
+
+  - id: SM-EX-002
+    situation:
+      contract_version: '0.1'
+      raw_input: >-
+        Тут половина речей мої, половина сестри, але вона давно живе окремо.
+        Є старий ноутбук за який колись багато заплатили і коробка з дитячими фото.
+        Хочу за вихідні максимально звільнити кімнату.
+      facts:
+        - text: У кімнаті є речі користувача та сестри.
+          source: user
+        - text: Є старий ноутбук і коробка з дитячими фотографіями.
+          source: user
+      goals:
+        - text: Максимально звільнити кімнату за вихідні.
+          source: user
+      constraints:
+        - text: На роботу є лише вихідні.
+          source: user
+      uncertainties:
+        - text: Неясно, чи має користувач право розпоряджатися речами сестри.
+          source: inferred
+          confidence: 0.95
+        - text: Поточна ринкова вартість ноутбука невідома.
+          source: inferred
+          confidence: 0.95
+      hypotheses:
+        - text: Фотографії можуть мати високу сентиментальну цінність.
+          source: inferred
+          confidence: 0.85
+      entities:
+        - ref: E1
+          kind: person
+          label: сестра
+          attributes: {}
+        - ref: E2
+          kind: item
+          label: старий ноутбук
+          attributes: {}
+        - ref: E3
+          kind: container
+          label: коробка з дитячими фото
+          attributes: {}
+
+  - id: SM-EX-003
+    situation:
+      contract_version: '0.1'
+      raw_input: >-
+        Третій день просто перекладаю коробки з підлоги на диван і назад.
+        У списку ще висять речі які вже продав. Хочу щоб кожна година реально щось змінювала.
+      facts:
+        - text: Коробки багаторазово переміщуються між підлогою та диваном.
+          source: user
+        - text: Продані речі все ще присутні в поточному списку.
+          source: user
+      goals:
+        - text: Досягати помітного прогресу за кожну годину роботи.
+          source: user
+      constraints: []
+      uncertainties:
+        - text: Невідомо, які рішення залишаються незавершеними для коробок.
+          source: inferred
+          confidence: 0.9
+      hypotheses:
+        - text: Переміщення речей відбувається без зміни їхнього стану або рішення щодо них.
+          source: inferred
+          confidence: 0.95
+        - text: Поточний список змішує активний стан з історією.
+          source: inferred
+          confidence: 0.95
+      entities:
+        - ref: E1
+          kind: container
+          label: коробки
+          attributes: {}
+        - ref: E2
+          kind: furniture
+          label: диван
+          attributes: {}
+
+  - id: SM-EX-004
+    situation:
+      contract_version: '0.1'
+      raw_input: >-
+        Я впевнений що мені треба 20 пластикових коробок, порадь які купити.
+        Правда я ще навіть не розібрав речі і не знаю що буду викидати.
+      facts:
+        - text: Користувач розглядає купівлю 20 пластикових коробок.
+          source: user
+        - text: Речі ще не розібрані.
+          source: user
+      goals:
+        - text: Вибрати рішення для зберігання речей.
+          source: inferred
+          confidence: 0.9
+      constraints: []
+      uncertainties:
+        - text: Невідомо, який обсяг речей залишиться після розбору.
+          source: inferred
+          confidence: 1.0
+      hypotheses:
+        - text: Кількість 20 коробок є припущенням, а не підтвердженою потребою.
+          source: inferred
+          confidence: 0.98
+      entities:
+        - ref: E1
+          kind: container
+          label: пластикові коробки
+          attributes:
+            proposed_quantity: 20
+
+  - id: SM-EX-005
+    situation:
+      contract_version: '0.1'
+      raw_input: >-
+        Треба звільнити шафу до вечора бо завтра приїдуть батьки. Там документи,
+        старі кабелі, одяг і якісь чужі речі, але я не хочу зараз зависати на кожній дрібниці.
+      facts:
+        - text: Шафу потрібно звільнити до вечора.
+          source: user
+        - text: У шафі є документи, кабелі, одяг і речі невизначеної належності.
+          source: user
+      goals:
+        - text: Звільнити шафу до вечора.
+          source: user
+      constraints:
+        - text: Є жорсткий часовий дедлайн до вечора.
+          source: user
+        - text: Користувач не хоче витрачати багато часу на дрібні рішення.
+          source: user
+      uncertainties:
+        - text: Власники частини речей невідомі.
+          source: user
+        - text: Важливість документів невідома.
+          source: inferred
+          confidence: 0.85
+      hypotheses:
+        - text: Детальне сортування кожного дрібного предмета може конфліктувати з часовим обмеженням.
+          source: inferred
+          confidence: 0.9
+      entities:
+        - ref: E1
+          kind: furniture
+          label: шафа
+          attributes: {}
+        - ref: E2
+          kind: collection
+          label: документи
+          attributes: {}
+
+  - id: SM-EX-006
+    situation:
+      contract_version: '0.1'
+      raw_input: >-
+        У гаражі є стелаж з коробками. Частина підписана, частина ні. Я пам'ятаю що там
+        інструменти і запчастини, але може ще щось. Хочу швидко знайти місце для сезонних шин.
+      facts:
+        - text: У гаражі є стелаж з підписаними та непідписаними коробками.
+          source: user
+        - text: У частині коробок є інструменти та запчастини.
+          source: user
+      goals:
+        - text: Швидко звільнити місце для сезонних шин.
+          source: user
+      constraints:
+        - text: Пріоритетом є швидкість.
+          source: inferred
+          confidence: 0.9
+      uncertainties:
+        - text: Вміст частини коробок невідомий.
+          source: user
+      hypotheses:
+        - text: Непідписані коробки створюють основну невизначеність щодо доступного простору.
+          source: inferred
+          confidence: 0.8
+      entities:
+        - ref: E1
+          kind: space
+          label: гараж
+          attributes: {}
+        - ref: E2
+          kind: furniture
+          label: стелаж
+          attributes: {}
+        - ref: E3
+          kind: item
+          label: сезонні шини
+          attributes: {}
