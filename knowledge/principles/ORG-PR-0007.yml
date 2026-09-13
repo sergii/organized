@@ -1,0 +1,22 @@
+id: ORG-PR-0007
+type: principle
+slug: uncertain-ownership-blocks-irreversible-disposition
+revision: 1
+status: draft
+statement: Uncertain ownership should block irreversible disposition decisions.
+reasoning:
+  - Physical custody does not imply authority to discard, sell, donate, or permanently alter an item.
+  - Ownership uncertainty creates asymmetric downside because disposal can be irreversible while waiting is usually reversible.
+  - The immediate task should shift from disposition to identifying the owner or establishing authority.
+considerations:
+  - ownership
+  - custody
+  - authority
+  - reversibility
+  - legal_or_personal_obligations
+exceptions:
+  - Immediate safety hazards may require temporary containment, isolation, or emergency action without resolving ownership first.
+evidence_status: working_hypothesis
+related:
+  - ORG-CON-0002
+  - ORG-CON-0003
