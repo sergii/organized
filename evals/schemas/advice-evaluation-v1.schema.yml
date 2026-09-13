@@ -1,0 +1,80 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: AdviceEvaluationV1
+type: object
+additionalProperties: false
+required:
+  - response_x
+  - response_y
+  - winner
+  - summary
+properties:
+  response_x:
+    $ref: "#/$defs/scorecard"
+  response_y:
+    $ref: "#/$defs/scorecard"
+  winner:
+    type: string
+    enum: [x, y, tie]
+  summary:
+    type: string
+$defs:
+  scorecard:
+    type: object
+    additionalProperties: false
+    required:
+      - situation_understanding
+      - actionability
+      - prioritization
+      - context_fit
+      - nuance_tradeoffs
+      - risk_awareness
+      - insight_density
+      - concision
+      - usability
+      - avoids_invented_facts
+      - overall
+    properties:
+      situation_understanding:
+        type: integer
+        minimum: 1
+        maximum: 10
+      actionability:
+        type: integer
+        minimum: 1
+        maximum: 10
+      prioritization:
+        type: integer
+        minimum: 1
+        maximum: 10
+      context_fit:
+        type: integer
+        minimum: 1
+        maximum: 10
+      nuance_tradeoffs:
+        type: integer
+        minimum: 1
+        maximum: 10
+      risk_awareness:
+        type: integer
+        minimum: 1
+        maximum: 10
+      insight_density:
+        type: integer
+        minimum: 1
+        maximum: 10
+      concision:
+        type: integer
+        minimum: 1
+        maximum: 10
+      usability:
+        type: integer
+        minimum: 1
+        maximum: 10
+      avoids_invented_facts:
+        type: integer
+        minimum: 1
+        maximum: 10
+      overall:
+        type: integer
+        minimum: 1
+        maximum: 10

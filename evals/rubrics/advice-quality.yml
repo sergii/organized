@@ -1,0 +1,13 @@
+version: 1
+dimensions:
+  situation_understanding: Did the answer correctly understand the user's underlying situation rather than only the last literal question?
+  actionability: Is it clear what the user can physically do next?
+  prioritization: Does it identify a sensible order of operations?
+  context_fit: Does it use the details actually present in this user's message?
+  nuance_tradeoffs: Does it handle meaningful trade-offs without overcomplicating the answer?
+  risk_awareness: Does it surface relevant risks or irreversible mistakes when useful?
+  insight_density: How much non-obvious useful guidance is delivered per unit of text?
+  concision: Is the response short enough for the problem without omitting important guidance?
+  usability: Is the response easy to follow without creating unnecessary cognitive load?
+  avoids_invented_facts: Does it avoid pretending to know details the user did not provide?
+  overall: Overall usefulness to the user.
