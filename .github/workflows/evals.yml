@@ -34,11 +34,12 @@ on:
         required: true
         default: high
         type: choice
-        options:
-          - low
-          - medium
-          - high
-          - xhigh
+        options: [low, medium, high, xhigh]
+      repetitions:
+        description: Number of blind repetitions
+        required: true
+        default: '5'
+        type: string
 
 permissions:
   contents: read
@@ -57,6 +58,8 @@ jobs:
           bundler-cache: true
       - name: Validate eval fixtures
         run: bundle exec ruby evals/bin/validate.rb
+      - name: Check eval runner syntax
+        run: ruby -c evals/bin/run.rb
 
   run-eval:
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/eval-runner')
@@ -80,22 +83,25 @@ jobs:
               echo "model=${{ inputs.model }}"
               echo "judge_model=${{ inputs.judge_model || inputs.model }}"
               echo "reasoning_effort=${{ inputs.reasoning_effort }}"
+              echo "repetitions=${{ inputs.repetitions }}"
             } >> "$GITHUB_OUTPUT"
           else
             ruby -ryaml -e '
-              config = YAML.safe_load(File.read("evals/requests/run.yml"))
+              config = YAML.safe_load_file("evals/requests/run.yml", permitted_classes: [], aliases: false)
               required = %w[scenario model reasoning_effort]
               missing = required.select { |key| config[key].to_s.empty? }
               abort("Missing request fields: #{missing.join(", ")}") unless missing.empty?
 
               judge_model = config["judge_model"].to_s
               judge_model = config["model"].to_s if judge_model.empty?
+              repetitions = config.fetch("repetitions", 1).to_s
 
               values = {
                 "scenario" => config["scenario"].to_s,
                 "model" => config["model"].to_s,
                 "judge_model" => judge_model,
-                "reasoning_effort" => config["reasoning_effort"].to_s
+                "reasoning_effort" => config["reasoning_effort"].to_s,
+                "repetitions" => repetitions
               }
 
               values.each do |key, value|
@@ -110,6 +116,7 @@ jobs:
           OPENAI_MODEL: ${{ steps.config.outputs.model }}
           OPENAI_JUDGE_MODEL: ${{ steps.config.outputs.judge_model }}
           OPENAI_REASONING_EFFORT: ${{ steps.config.outputs.reasoning_effort }}
+          EVAL_REPETITIONS: ${{ steps.config.outputs.repetitions }}
         run: bundle exec ruby evals/bin/run.rb '${{ steps.config.outputs.scenario }}'
       - name: Explain missing API key
         if: env.OPENAI_API_KEY == ''
