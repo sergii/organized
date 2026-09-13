@@ -1,0 +1,24 @@
+id: ORG-EVAL-0003
+title: Rehandling without progress and stale active inventory
+status: draft
+user_input: >-
+  Я вже третій день розбираю кімнату, але відчуття, що просто перекладаю речі.
+  Коробки з підлоги їдуть на диван, потім у шафу, потім знову назад, бо я не можу
+  вирішити, що з ними робити. Ще в моєму списку речей досі є те, що я вже продав
+  або віддав, бо хочу зберігати історію. Працюю годинами, а прогресу майже не видно.
+  Як перебудувати процес, щоб кожна година реально щось змінювала?
+knowledge:
+  case: cases/ORG-CASE-0001.yml
+hidden_expectations:
+  important_uncertainties:
+    - disposition_of_rehandled_items
+    - which_items_are_current_vs_historical_inventory
+    - whether_each_touch_changes_item_state
+  useful_reasoning_properties:
+    - distinguish_movement_from_state_change
+    - make_each_touch_reduce_uncertainty_or_advance_disposition
+    - create_a_stable_working_zone_before_detailed_organization
+    - use_an_explicit_unresolved_state_instead_of_endless_rehandling
+    - remove_completed_dispositions_from_active_inventory
+    - preserve_history_separately_from_current_state
+    - prioritize_actions_that_create_visible_capacity
