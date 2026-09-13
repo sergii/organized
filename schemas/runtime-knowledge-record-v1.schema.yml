@@ -49,6 +49,6 @@ properties:
     minLength: 1
   source_path:
     type: string
-    pattern: '^(knowledge/(principles|heuristics|practices|anti-patterns|concepts)|cases)/.+\\.yml$'
+    pattern: '^(knowledge/(principles|heuristics|practices|anti-patterns|concepts)|cases)/.+\.yml$'
   content:
     type: object
