@@ -12,6 +12,7 @@ required:
   - status
   - summary
   - retrieval_text
+  - search_texts
   - source_path
   - content
 properties:
@@ -47,6 +48,20 @@ properties:
   retrieval_text:
     type: string
     minLength: 1
+  search_texts:
+    type: object
+    additionalProperties: false
+    required: [canonical, en, uk]
+    properties:
+      canonical:
+        type: string
+        minLength: 1
+      en:
+        type: string
+        minLength: 1
+      uk:
+        type: string
+        minLength: 1
   source_path:
     type: string
     pattern: '^(knowledge/(principles|heuristics|practices|anti-patterns|concepts)|cases)/.+\.yml$'

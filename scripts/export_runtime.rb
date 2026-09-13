@@ -11,6 +11,7 @@ require "json_schemer"
 ROOT = Pathname.new(__dir__).join("..").expand_path
 DEFAULT_OUTPUT = ROOT.join("dist", "organized-v1.jsonl")
 SCHEMA_PATH = ROOT.join("schemas", "runtime-knowledge-record-v1.schema.yml")
+LOCALE_NAMES = %w[en uk].freeze
 
 SOURCE_GLOBS = [
   "knowledge/principles/*.yml",
@@ -65,11 +66,25 @@ def retrieval_text_for(record)
   parts.compact.map(&:strip).reject(&:empty?).uniq.join("\n")
 end
 
+
+def localized_text_for(locale, record)
+  section = record["type"] == "case" ? "cases" : "knowledge"
+  entry = locale.dig(section, record.fetch("id")) || {}
+  parts = []
+  collect_text(entry, parts)
+  parts.map(&:strip).reject(&:empty?).uniq.join("\n")
+end
+
+locales = LOCALE_NAMES.to_h do |name|
+  [name, load_record(ROOT.join("locales", "#{name}.yml"))]
+end
+
 paths = SOURCE_GLOBS.flat_map { |glob| Dir[ROOT.join(glob).to_s] }.uniq.sort
 records = paths.map do |filename|
   path = Pathname.new(filename)
   source_path = path.relative_path_from(ROOT).to_s
   content = load_record(path)
+  canonical_text = retrieval_text_for(content)
 
   {
     "contract_version" => 1,
@@ -80,7 +95,12 @@ records = paths.map do |filename|
     "status" => content.fetch("status"),
     "evidence_status" => content["evidence_status"],
     "summary" => summary_for(content),
-    "retrieval_text" => retrieval_text_for(content),
+    "retrieval_text" => canonical_text,
+    "search_texts" => {
+      "canonical" => canonical_text,
+      "en" => localized_text_for(locales.fetch("en"), content),
+      "uk" => localized_text_for(locales.fetch("uk"), content)
+    },
     "source_path" => source_path,
     "content" => content
   }.compact

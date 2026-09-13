@@ -1,0 +1,76 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://organized.sh/schemas/retrieval-result-v0.1.schema.json
+title: Organized Retrieval Result v0.1
+type: object
+additionalProperties: false
+required:
+  - contract_version
+  - strategy
+  - situation_contract_version
+  - query
+  - candidate_count
+  - returned_count
+  - candidates
+properties:
+  contract_version:
+    const: '0.1'
+  strategy:
+    const: lexical-idf-prefix5-v0.1
+  situation_contract_version:
+    const: '0.1'
+  query:
+    type: object
+    additionalProperties: false
+    required: [text, tokens, limit]
+    properties:
+      text:
+        type: string
+        minLength: 1
+      tokens:
+        type: array
+        items:
+          type: string
+          minLength: 1
+      limit:
+        type: [integer, 'null']
+        minimum: 1
+  candidate_count:
+    type: integer
+    minimum: 0
+  returned_count:
+    type: integer
+    minimum: 0
+  candidates:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - revision
+        - type
+        - score
+        - matched_terms
+        - matched_locales
+      properties:
+        id:
+          type: string
+          pattern: '^ORG-(PR|HEU|PRA|AP|CON|CASE)-[0-9]{4}$'
+        revision:
+          type: integer
+          minimum: 1
+        type:
+          type: string
+          enum: [principle, heuristic, practice, anti-pattern, concept, case]
+        score:
+          type: number
+          minimum: 0
+        matched_terms:
+          type: array
+          items:
+            type: string
+            minLength: 1
+        matched_locales:
+          type: array
+          items:
+            enum: [canonical, en, uk]
