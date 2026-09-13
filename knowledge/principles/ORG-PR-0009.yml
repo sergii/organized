@@ -1,0 +1,22 @@
+id: ORG-PR-0009
+type: principle
+slug: ownership-custody-and-location-are-separate
+revision: 1
+status: draft
+statement: Ownership, custody, and location are separate facts and should not be collapsed into one state.
+reasoning:
+  - A person can own an item stored elsewhere.
+  - A person can physically hold an item owned by someone else.
+  - Current location does not establish ownership or decision authority.
+considerations:
+  - ownership
+  - custody
+  - location
+  - authority
+exceptions:
+  - None; this is a modeling distinction rather than a disposition rule.
+evidence_status: working_hypothesis
+related:
+  - ORG-CON-0002
+  - ORG-CON-0003
+  - ORG-CON-0004
