@@ -19,3 +19,5 @@ jobs:
           bundler-cache: true
       - name: Validate schemas, references, and locales
         run: bundle exec ruby scripts/validate.rb
+      - name: Validate runtime export contract
+        run: bundle exec ruby scripts/export_runtime.rb tmp/organized-v1.jsonl
