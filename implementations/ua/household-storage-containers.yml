@@ -1,0 +1,336 @@
+kind: implementation_profile
+version: 1
+scope:
+  country_code: UA
+  country: Ukraine
+  domain: household_storage_containers
+  observed_at: 2026-09-13
+  status: exploratory
+
+purpose: >-
+  Map general household-storage needs to container types, capabilities,
+  locally available Ukrainian products, suppliers, and price observations.
+  This is an implementation layer, not canonical Organized knowledge.
+
+canonical_intents:
+  - id: dry_general_storage
+    description: Store ordinary household items in a dry, controlled environment.
+  - id: frequent_access_storage
+    description: Store items that should be reopened repeatedly without destroying the container closure.
+  - id: heavy_compact_storage
+    description: Store dense or heavy items such as books, tools, or hardware.
+  - id: damp_or_uncontrolled_storage
+    description: Store moisture-sensitive items in a garage, basement, or another environment with uncertain humidity.
+  - id: hanging_clothes_storage
+    description: Store garments while keeping them on hangers.
+  - id: compressible_textile_storage
+    description: Reduce the volume of blankets, seasonal clothes, pillows, or similar textiles.
+
+container_ontology:
+  materials:
+    corrugated_cardboard:
+      common_layer_counts: [3, 5]
+      strengths:
+        - low_cost
+        - flat_packable
+        - recyclable
+        - easy_to_brand
+      weaknesses:
+        - moisture_sensitive
+        - degrades_with_repeated_handling
+    polypropylene:
+      strengths:
+        - moisture_resistant
+        - reusable
+        - easy_to_clean
+        - stackable_when_designed_for_it
+      weaknesses:
+        - materially_higher_purchase_price
+        - bulky_when_empty_unless_nestable
+    textile:
+      strengths:
+        - lightweight
+        - useful_for_wardrobe_items
+      weaknesses:
+        - weak_crush_protection
+        - limited_moisture_protection
+    vacuum_film:
+      strengths:
+        - volume_reduction
+      weaknesses:
+        - poor_for_rigid_items
+        - puncture_risk
+
+  constructions:
+    regular_slotted_box:
+      aliases:
+        - four_flap_box
+        - fefco_0201
+      typical_material: corrugated_cardboard
+      capabilities:
+        recloseable_without_consumables: false
+        handles: false
+        flat_packable: true
+        low_cost: true
+      notes:
+        - Usually closed with tape.
+        - Good transport packaging, but less convenient for repeated household access.
+
+    archive_style_box:
+      typical_material: corrugated_cardboard
+      capabilities:
+        recloseable_without_consumables: true
+        handles: optional
+        lid: true
+        flat_packable: true
+        repeated_access: good
+      notes:
+        - Prefer capability checks over the retail label "archive box".
+        - Especially attractive for household storage when the price premium is small or zero.
+
+    reinforced_cardboard_box:
+      typical_material: corrugated_cardboard
+      capabilities:
+        heavy_load: better_than_standard_3_ply
+      notes:
+        - Often implemented with 5-ply corrugated board.
+        - Suitable for dense items where ordinary 3-ply boxes are a poor fit.
+
+    plastic_tote:
+      typical_material: polypropylene
+      capabilities:
+        recloseable_without_consumables: true
+        moisture_resistant: true
+        reusable: true
+        washable: true
+      notes:
+        - Preferred implementation candidate for damp or uncontrolled storage.
+        - Upfront price is much higher than cardboard, so it should be recommended selectively.
+
+    wardrobe_box:
+      typical_material: corrugated_cardboard
+      capabilities:
+        hanger_bar: true
+        tall_format: true
+      notes:
+        - Useful for suits, coats, dresses, and other garments that should remain hanging.
+
+    vacuum_storage_bag:
+      typical_material: vacuum_film
+      capabilities:
+        volume_reduction: true
+      notes:
+        - Suitable for compressible textiles rather than general mixed inventory.
+
+attributes:
+  geometry:
+    - inner_length_mm
+    - inner_width_mm
+    - inner_height_mm
+    - volume_l
+  handling:
+    - handles
+    - lid
+    - recloseable_without_consumables
+    - flat_packable
+    - stackable
+    - nestable
+  protection:
+    - moisture_resistant
+    - crush_resistance
+    - nominal_load_kg
+    - layer_count
+  identity:
+    - human_readable_box_id
+    - unique_qr
+    - barcode
+    - room_label
+    - category_label
+    - fragile_marking
+    - orientation_marking
+    - max_weight_marking
+
+recommendation_rules:
+  - id: ua_storage_001
+    when:
+      environment: dry_controlled
+      access_frequency: low_or_medium
+      load: light_or_medium
+    prefer:
+      - regular_slotted_box
+      - archive_style_box
+    rationale: >-
+      Cardboard is the economic default in dry household storage. Prefer archive-style
+      construction when repeated access and easier carrying justify little or no premium.
+
+  - id: ua_storage_002
+    when:
+      access_frequency: high
+    prefer:
+      - archive_style_box
+    avoid_as_default:
+      - regular_slotted_box
+    rationale: >-
+      Repeatedly cutting and replacing tape creates unnecessary friction. A lid and handles
+      materially improve household usability.
+
+  - id: ua_storage_003
+    when:
+      environment: damp_or_uncontrolled
+      contents_moisture_sensitive: true
+    prefer:
+      - plastic_tote
+    avoid_as_default:
+      - corrugated_cardboard
+    rationale: >-
+      The higher container price can be justified when cardboard degradation or moisture
+      exposure risks the stored contents.
+
+  - id: ua_storage_004
+    when:
+      load: heavy_dense
+    prefer:
+      - reinforced_cardboard_box
+      - plastic_tote
+    rationale: >-
+      Dense contents such as books, tools, and hardware require load-aware packaging rather
+      than selecting a box only by volume.
+
+  - id: ua_storage_005
+    when:
+      contents: hanging_clothes
+    prefer:
+      - wardrobe_box
+
+  - id: ua_storage_006
+    when:
+      contents: compressible_textiles
+      objective: reduce_volume
+    prefer:
+      - vacuum_storage_bag
+
+ukraine_market_observations:
+  - id: ua_obs_panbox_handles
+    observed_at: 2026-09-13
+    supplier: PanBox
+    category: archive_style_box
+    comparison:
+      size_mm: [328, 230, 210]
+      with_handles:
+        sku: "02001"
+        listed_price_uah: 30.06
+      without_handles:
+        sku: "02011"
+        listed_price_uah: 30.06
+      listed_price_delta_uah: 0.0
+    caveat: >-
+      PanBox pages have shown inconsistent prices across crawls and category pages, so this
+      observation should be refreshed before procurement. The useful signal is that handles
+      are not necessarily a meaningful cost premium.
+    source: https://panbox.com.ua/ua/upakovka-z-kartonu/korobky-dlya-pereyizdu/
+
+  - id: ua_obs_sotalan_archive
+    observed_at: 2026-09-13
+    supplier: Sotalan
+    category: archive_style_box
+    products:
+      - size_mm: [328, 230, 210]
+        listed_price_uah: 21.60
+      - size_mm: [480, 325, 300]
+        listed_price_uah: 43.90
+      - size_mm: [535, 295, 345]
+        listed_price_uah: 44.00
+    capabilities_reported_by_supplier:
+      - lid
+      - cutout_handles
+      - reinforced_double_walls
+      - reinforced_bottom
+    source: https://sotalan.com/uk/arhivnyie-boksyi-arhivnyie-korobki
+
+  - id: ua_obs_korobky_regular_500
+    observed_at: 2026-09-13
+    supplier: Korobky.ua
+    category: regular_slotted_box
+    product:
+      size_mm: [500, 300, 300]
+      board: T22C
+      listed_prices_uah:
+        retail: 62
+        qty_25: 54
+        qty_50: 46
+        qty_100: 42
+        qty_200: 40
+        qty_300: 38
+    source: https://korobky.com.ua/
+
+  - id: ua_obs_korobky_custom
+    observed_at: 2026-09-13
+    supplier: Korobky.ua
+    capabilities:
+      custom_size_min_qty: 50
+      prototype_qty: "1-5"
+      logo_printing: true
+    source: https://korobky.com.ua/chotyryklapanni-korobkyy/
+
+market_interpretation:
+  - >-
+    Retail category names are unreliable ontology. The same physical construction can appear
+    as an archive box, moving box, or food-set box. Match by capabilities and geometry first.
+  - >-
+    In at least one current PanBox listing, the 328x230x210 archive box with handles and the
+    version explicitly marked "without handles" have the same listed price. This makes handles
+    a high-value UX feature when available at parity.
+  - >-
+    Sotalan currently lists self-assembling archive-style boxes with lid and cutout handles at
+    21.60-44.00 UAH across several household-usable sizes. This supports treating archive-style
+    construction as a mainstream option rather than a premium niche.
+  - >-
+    A 500x300x300 regular four-flap box from Korobky.ua is listed at 62 UAH retail and 38 UAH at
+    300 units. Size and supplier differences prevent a strict like-for-like comparison, but the
+    archive-style market is clearly not automatically 10-30 UAH more expensive.
+
+rechibox_projection:
+  role: >-
+    rechibox should recommend the container type that best fits the user's contents and storage
+    environment, then choose whether to route the user to a third-party Ukrainian supplier or
+    offer a rechibox-branded equivalent.
+  candidate_launch_skus:
+    - id: rechibox_m
+      target_inner_size_mm: [400, 300, 250]
+      target_use: general_household_storage
+      preferred_construction: archive_style_box
+      desired_capabilities:
+        - lid
+        - handles
+        - recloseable_without_consumables
+        - unique_qr_zone
+    - id: rechibox_l
+      target_inner_size_mm: [600, 400, 300]
+      target_use: clothes_toys_light_bulk
+      preferred_construction: archive_style_box
+      desired_capabilities:
+        - lid
+        - handles
+        - unique_qr_zone
+    - id: rechibox_heavy
+      target_inner_size_mm: [400, 300, 250]
+      target_use: books_tools_dense_items
+      preferred_construction: reinforced_cardboard_box
+      desired_capabilities:
+        - handles
+        - load_marking
+        - unique_qr_zone
+
+  identity_strategy:
+    static_print:
+      - rechibox_brand
+      - handling_icons
+      - qr_target_area
+      - room_field
+      - max_weight_field
+    variable_identity:
+      - unique_qr_sticker
+      - box_id
+    rationale: >-
+      Use inexpensive repeated printing for shared artwork and variable labels for unique box
+      identity. Avoid making every corrugated box a separately printed variable-data product.
