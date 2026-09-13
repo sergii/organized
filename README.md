@@ -60,6 +60,18 @@ Learning and provenance:
 
 See [`docs/knowledge-model.md`](docs/knowledge-model.md).
 
+## Runtime consumption
+
+Canonical knowledge stays in YAML and Git. Consumers can generate a deterministic JSONL projection for ingestion into PostgreSQL, lexical search, embeddings, or another runtime index:
+
+```bash
+bundle exec ruby scripts/export_runtime.rb
+```
+
+The generated `dist/organized-v1.jsonl` is a build artifact, not a second source of truth. Each line includes stable identity and revision metadata, retrieval text, source path, and the complete canonical record as JSON.
+
+See [`docs/runtime-export.md`](docs/runtime-export.md).
+
 ## World state is separate from knowledge
 
 An item can belong to one person, physically sit with another, be located elsewhere, and still require future action. `ownership`, `custody`, `location`, and `disposition` are deliberately separate concepts.
@@ -94,6 +106,7 @@ Schemas are executable contracts, not documentation-only files.
 ```bash
 bundle install
 bundle exec ruby scripts/validate.rb
+bundle exec ruby scripts/export_runtime.rb tmp/organized-v1.jsonl
 ```
 
 CI validates:
@@ -103,7 +116,8 @@ CI validates:
 - referential integrity for `ORG-*` references;
 - one-way relationship policy;
 - English and Ukrainian locale completeness;
-- locale `source_revision` freshness.
+- locale `source_revision` freshness;
+- the consumer-facing runtime export contract.
 
 ## Repository layout
 
