@@ -1,0 +1,23 @@
+id: ORG-EVAL-0002
+title: Mixed ownership, sentimental value, and selling cost
+status: draft
+user_input: >-
+  Розгрібаю кімнату і вже завис: є дві коробки речей колишньої дівчини,
+  старі фото й подарунки, купа техніки, яку шкода викинути, бо колись дорого купував.
+  Хочу звільнити місце за вихідні і думаю все цінне виставити на OLX, але не хочу
+  потім пошкодувати чи витратити весь день на продаж дрібниць. Як би ти це розібрав?
+knowledge:
+  case: cases/ORG-CASE-0001.yml
+hidden_expectations:
+  important_uncertainties:
+    - ownership_of_ex_partner_items
+    - current_value_of_old_electronics
+    - sentimental_value_of_photos_and_gifts
+    - actual_time_available_for_selling
+  useful_reasoning_properties:
+    - separate_ownership_from_custody
+    - avoid_irreversible_disposal_of_others_property
+    - preserve_sentimental_value_as_a_real_dimension
+    - distinguish_purchase_price_from_current_value
+    - compare_storage_burden_with_transaction_cost_of_selling
+    - prioritize_space_gain_under_a_weekend_time_budget
