@@ -1,7 +1,7 @@
 id: ORG-CASE-0001
 type: case
 slug: declutter-constrained-space
-revision: 1
+revision: 2
 status: draft
 situation:
   summary: A small room is already densely occupied by furniture, boxes, papers, unknown belongings, and items with unclear ownership, value, or future use.
@@ -27,6 +27,9 @@ principles:
   - ORG-PR-0004
   - ORG-PR-0005
   - ORG-PR-0006
+  - ORG-PR-0007
+  - ORG-PR-0008
+  - ORG-PR-0009
 heuristics:
   - ORG-HEU-0001
 workflow:
