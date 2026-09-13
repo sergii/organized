@@ -58,8 +58,18 @@ jobs:
       - name: Validate eval fixtures
         run: bundle exec ruby evals/bin/validate.rb
 
+  # Paid model calls are fail-closed. The OPENAI_API_KEY secret can stay configured,
+  # but this job will not run unless the repository Actions variable
+  # OPENAI_EVALS_ENABLED is explicitly set to "true".
   run-eval:
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/eval-runner')
+    if: >-
+      ${{
+        vars.OPENAI_EVALS_ENABLED == 'true' &&
+        (
+          github.event_name == 'workflow_dispatch' ||
+          (github.event_name == 'push' && github.ref == 'refs/heads/eval-runner')
+        )
+      }}
     needs: validate-evals
     runs-on: ubuntu-24.04
     env:
