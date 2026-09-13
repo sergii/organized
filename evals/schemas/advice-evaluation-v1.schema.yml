@@ -5,6 +5,7 @@ additionalProperties: false
 required:
   - response_x
   - response_y
+  - response_z
   - winner
   - summary
 properties:
@@ -12,9 +13,11 @@ properties:
     $ref: "#/$defs/scorecard"
   response_y:
     $ref: "#/$defs/scorecard"
+  response_z:
+    $ref: "#/$defs/scorecard"
   winner:
     type: string
-    enum: [x, y, tie]
+    enum: [x, y, z, tie]
   summary:
     type: string
 $defs:
