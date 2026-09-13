@@ -7,6 +7,11 @@ on:
       - 'knowledge/**'
       - 'cases/**'
       - '.github/workflows/evals.yml'
+  push:
+    branches:
+      - eval-runner
+    paths:
+      - 'evals/requests/run.yml'
   workflow_dispatch:
     inputs:
       scenario:
@@ -54,33 +59,70 @@ jobs:
         run: bundle exec ruby evals/bin/validate.rb
 
   run-eval:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/eval-runner')
     needs: validate-evals
     runs-on: ubuntu-24.04
-    env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      OPENAI_MODEL: ${{ inputs.model }}
-      OPENAI_JUDGE_MODEL: ${{ inputs.judge_model || inputs.model }}
-      OPENAI_REASONING_EFFORT: ${{ inputs.reasoning_effort }}
     steps:
       - uses: actions/checkout@v7
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
+      - name: Resolve eval configuration
+        id: config
+        shell: bash
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            {
+              echo "scenario=${{ inputs.scenario }}"
+              echo "model=${{ inputs.model }}"
+              echo "judge_model=${{ inputs.judge_model || inputs.model }}"
+              echo "reasoning_effort=${{ inputs.reasoning_effort }}"
+            } >> "$GITHUB_OUTPUT"
+          else
+            ruby -ryaml -e '
+              config = YAML.safe_load(File.read("evals/requests/run.yml"))
+              required = %w[scenario model reasoning_effort]
+              missing = required.select { |key| config[key].to_s.empty? }
+              abort("Missing request fields: #{missing.join(", ")}") unless missing.empty?
+
+              judge_model = config["judge_model"].to_s
+              judge_model = config["model"].to_s if judge_model.empty?
+
+              values = {
+                "scenario" => config["scenario"].to_s,
+                "model" => config["model"].to_s,
+                "judge_model" => judge_model,
+                "reasoning_effort" => config["reasoning_effort"].to_s
+              }
+
+              values.each do |key, value|
+                abort("Invalid newline in #{key}") if value.include?("\n") || value.include?("\r")
+                puts "#{key}=#{value}"
+              end
+            ' >> "$GITHUB_OUTPUT"
+          fi
       - name: Run eval
         if: env.OPENAI_API_KEY != ''
-        run: bundle exec ruby evals/bin/run.rb '${{ inputs.scenario }}'
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ steps.config.outputs.model }}
+          OPENAI_JUDGE_MODEL: ${{ steps.config.outputs.judge_model }}
+          OPENAI_REASONING_EFFORT: ${{ steps.config.outputs.reasoning_effort }}
+        run: bundle exec ruby evals/bin/run.rb '${{ steps.config.outputs.scenario }}'
       - name: Explain missing API key
         if: env.OPENAI_API_KEY == ''
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           echo 'OPENAI_API_KEY is not configured.'
-          echo 'Add it as a GitHub Actions repository secret, then re-run this workflow.'
+          echo 'Add it as a GitHub Actions repository secret, then trigger the eval again.'
+          exit 1
       - name: Upload eval artifact
-        if: env.OPENAI_API_KEY != ''
+        if: success()
         uses: actions/upload-artifact@v7
         with:
-          name: organized-eval-${{ inputs.scenario }}-${{ github.run_id }}
+          name: organized-eval-${{ steps.config.outputs.scenario }}-${{ github.run_id }}
           path: tmp/evals/
           if-no-files-found: error
           retention-days: 30
