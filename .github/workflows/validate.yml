@@ -21,3 +21,5 @@ jobs:
         run: bundle exec ruby scripts/validate.rb
       - name: Validate runtime export contract
         run: bundle exec ruby scripts/export_runtime.rb tmp/organized-v1.jsonl
+      - name: Validate Situation Model examples
+        run: bundle exec ruby scripts/validate_situations.rb
