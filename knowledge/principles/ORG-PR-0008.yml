@@ -1,0 +1,20 @@
+id: ORG-PR-0008
+type: principle
+slug: sentimental-value-matters
+revision: 1
+status: draft
+statement: Sentimental value is a legitimate dimension when deciding what to keep.
+reasoning:
+  - Personal meaning may make an item effectively irreplaceable even when market value is low.
+  - A space-saving decision can still be a poor decision if it destroys something uniquely meaningful.
+  - Sentimental value should be considered explicitly alongside utility, resale value, and storage burden.
+considerations:
+  - sentimental_value
+  - irreplaceability
+  - personal_meaning
+  - space_burden
+exceptions:
+  - Sentimental value does not require keeping every associated object; selecting representative items or consolidating a collection may preserve meaning with less burden.
+evidence_status: working_hypothesis
+related:
+  - ORG-PR-0004
