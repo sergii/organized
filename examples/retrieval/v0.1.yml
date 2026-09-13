@@ -1,0 +1,20 @@
+cases:
+  - id: RET-EX-001
+    situation_id: SM-EX-001
+    limit: 5
+    must_include:
+      - ORG-PR-0002
+      - ORG-HEU-0001
+
+  - id: RET-EX-002
+    situation_id: SM-EX-003
+    limit: 5
+    must_include:
+      - ORG-PR-0001
+      - ORG-PR-0003
+
+  - id: RET-EX-003
+    situation_id: SM-EX-004
+    limit: 5
+    must_include:
+      - ORG-CASE-0001

@@ -23,3 +23,5 @@ jobs:
         run: bundle exec ruby scripts/export_runtime.rb tmp/organized-v1.jsonl
       - name: Validate Situation Model examples
         run: bundle exec ruby scripts/validate_situations.rb
+      - name: Validate deterministic retrieval fixtures
+        run: bundle exec ruby scripts/validate_retrieval.rb tmp/organized-v1.jsonl
