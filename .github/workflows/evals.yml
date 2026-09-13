@@ -1,0 +1,86 @@
+name: Run Organized evals
+
+on:
+  pull_request:
+    paths:
+      - 'evals/**'
+      - 'knowledge/**'
+      - 'cases/**'
+      - '.github/workflows/evals.yml'
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: Eval scenario ID
+        required: true
+        default: ORG-EVAL-0001
+        type: string
+      model:
+        description: OpenAI model
+        required: true
+        default: gpt-5.6-sol
+        type: string
+      judge_model:
+        description: OpenAI judge model (empty = same as model)
+        required: false
+        default: ''
+        type: string
+      reasoning_effort:
+        description: Reasoning effort
+        required: true
+        default: high
+        type: choice
+        options:
+          - low
+          - medium
+          - high
+          - xhigh
+
+permissions:
+  contents: read
+
+env:
+  RUBY_VERSION: '3.3.12'
+
+jobs:
+  validate-evals:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+      - name: Validate eval fixtures
+        run: bundle exec ruby evals/bin/validate.rb
+
+  run-eval:
+    if: github.event_name == 'workflow_dispatch'
+    needs: validate-evals
+    runs-on: ubuntu-24.04
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_MODEL: ${{ inputs.model }}
+      OPENAI_JUDGE_MODEL: ${{ inputs.judge_model || inputs.model }}
+      OPENAI_REASONING_EFFORT: ${{ inputs.reasoning_effort }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+      - name: Run eval
+        if: env.OPENAI_API_KEY != ''
+        run: bundle exec ruby evals/bin/run.rb '${{ inputs.scenario }}'
+      - name: Explain missing API key
+        if: env.OPENAI_API_KEY == ''
+        run: |
+          echo 'OPENAI_API_KEY is not configured.'
+          echo 'Add it as a GitHub Actions repository secret, then re-run this workflow.'
+      - name: Upload eval artifact
+        if: env.OPENAI_API_KEY != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: organized-eval-${{ inputs.scenario }}-${{ github.run_id }}
+          path: tmp/evals/
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,21 @@
+id: ORG-EVAL-0001
+title: Cluttered room - where do I start?
+status: draft
+user_input: >-
+  У мене капець захаращена кімната, метрів 16, купа всього на підлозі,
+  якісь коробки, шафа, диван. Хочу нарешті розібрати, але взагалі не
+  розумію, з чого почати і чи варто одразу купувати нормальні коробки.
+knowledge:
+  case: cases/ORG-CASE-0001.yml
+hidden_expectations:
+  facts:
+    space_type: room
+    area_m2: 16
+  important_uncertainties:
+    - what_to_keep_or_remove
+    - whether_to_buy_storage_containers_now
+  useful_reasoning_properties:
+    - recognize_limited_working_capacity
+    - avoid_premature_storage_purchase
+    - create_working_space_before_organizing_survivors
+    - start_with_low_decision_cost_exits
