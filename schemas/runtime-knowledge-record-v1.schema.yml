@@ -1,0 +1,54 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://organized.sh/schemas/runtime-knowledge-record-v1.schema.json
+title: Organized Runtime Knowledge Record v1
+type: object
+additionalProperties: false
+required:
+  - contract_version
+  - id
+  - type
+  - slug
+  - revision
+  - status
+  - summary
+  - retrieval_text
+  - source_path
+  - content
+properties:
+  contract_version:
+    const: 1
+  id:
+    type: string
+    pattern: '^ORG-(PR|HEU|PRA|AP|CON|CASE)-[0-9]{4}$'
+  type:
+    type: string
+    enum:
+      - principle
+      - heuristic
+      - practice
+      - anti-pattern
+      - concept
+      - case
+  slug:
+    type: string
+    minLength: 1
+  revision:
+    type: integer
+    minimum: 1
+  status:
+    type: string
+    minLength: 1
+  evidence_status:
+    type: string
+    minLength: 1
+  summary:
+    type: string
+    minLength: 1
+  retrieval_text:
+    type: string
+    minLength: 1
+  source_path:
+    type: string
+    pattern: '^(knowledge/(principles|heuristics|practices|anti-patterns|concepts)|cases)/.+\\.yml$'
+  content:
+    type: object
